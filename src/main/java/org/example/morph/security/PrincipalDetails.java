@@ -54,7 +54,7 @@ public class PrincipalDetails implements UserDetails {
 	}
 	
     /**
-	 *  User Role 파싱하는 함수.
+	 *  User Role 파싱하는 함수
 	 *  @return Collection<? extends GrantedAuthority> authorities
 	 */
 	@Override

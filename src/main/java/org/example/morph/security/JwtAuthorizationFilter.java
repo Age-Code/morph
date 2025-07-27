@@ -42,13 +42,15 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 			chain.doFilter(request, response);
 			return;
 		}
-		//String accessToken = jwtHeader.replace(externalProperties.getTokenPrefix(), "");
+
 		String accessToken = jwtHeader.substring(externalProperties.getTokenPrefix().length());
 
 		Long userId = authService.verifyAccessToken(accessToken);
 
 		// 유저 조회, 없을 시 return NoMatchingDataException(404)
 		User user = userRepository.findById(userId).orElse(null);
+
+		// PrincipalDetails 생성
 		PrincipalDetails principalDetails = new PrincipalDetails(user);
 
 		// Authentication 생성

@@ -1,6 +1,7 @@
 package org.example.morph.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.example.morph.repository.UserRepository;
 import org.example.morph.security.*;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 @EnableWebSecurity
 @EnableMethodSecurity
+@RequiredArgsConstructor
 @Configuration
 public class SecurityConfig {
 	
@@ -26,15 +28,9 @@ public class SecurityConfig {
 	private final AuthService authService;
 	private final ExternalProperties externalProperties;
 
-	public SecurityConfig(UserRepository userRepository, CorsFilterConfiguration corsFilterConfiguration, ObjectMapper objectMapper, AuthService authService
-			, ExternalProperties externalProperties) {
-		this.userRepository = userRepository;
-		this.corsFilterConfiguration = corsFilterConfiguration;
-		this.objectMapper = objectMapper;
-		this.authService = authService;
-		this.externalProperties = externalProperties;
-	}
-
+	/**
+	 * 비밀번호 암호화
+	 */
 	@Bean
 	BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -45,38 +41,46 @@ public class SecurityConfig {
 	 */
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.headers().frameOptions().sameOrigin();
+		http.headers().frameOptions().sameOrigin(); // iframe 보안 설정
+
 		http
+				// CSRF 비활성화 (REST API)
 				.csrf(AbstractHttpConfigurer::disable)
-					.authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-				//세션을 안쓰는 경우!!	STATELESS!!
+				// 모든 요청 허용
+				.authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+				// 세션 사용 안 함 (STATELESS)
 				.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-					.formLogin(AbstractHttpConfigurer::disable)
-					.httpBasic(AbstractHttpConfigurer::disable)
-					.addFilter(corsFilterConfiguration.corsFilter())
+				// 기본 로그인폼 비활성화
+				.formLogin(AbstractHttpConfigurer::disable)
+				// HTTP Basic 인증 비활성화
+				.httpBasic(AbstractHttpConfigurer::disable)
+				// CORS 필터 삽입
+				.addFilter(corsFilterConfiguration.corsFilter())
+				// 아래 정의한 커스텀 필터들 삽입 (CustomDsl)
 				.apply(new CustomDsl());
+
 		return http.build();
 	}
 					
 	public class CustomDsl extends AbstractHttpConfigurer<CustomDsl, HttpSecurity> {
 		
 	    /**
-		 *  Jwt Token Authentication을 위한 filter 설정.
-		 *  
-		 *  jwtAuthenticationFilter: 인증을 위한 필터("/api/login")
-		 *  JwtAuthorizationFilter: 인가를 위한 필터
-		 *  FilterExceptionHandlerFilter: TokenExpiredException 핸들링을 위한 필터 
+		 *  커스텀 필터 설정
 		 */
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
 			AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
+
 			JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, objectMapper, authService, externalProperties);
 			jwtAuthenticationFilter.setFilterProcessesUrl("/api/login");
 			
 			http.addFilter(corsFilterConfiguration.corsFilter())
-				.addFilter(jwtAuthenticationFilter)
-				.addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository, authService, externalProperties))
-				.addFilterBefore(new FilterExceptionHandlerFilter(), BasicAuthenticationFilter.class);
+					// 로그인 처리 필터
+					.addFilter(jwtAuthenticationFilter)
+					// JWT 검증 필터
+					.addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository, authService, externalProperties))
+					// 예외 핸들링 필터
+					.addFilterBefore(new FilterExceptionHandlerFilter(), BasicAuthenticationFilter.class);
 		}
 		
 	}

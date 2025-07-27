@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import lombok.Getter;
 import lombok.Setter;
-import org.example.morph.dto.RefreshTokenDto;
 
 @Getter
 @Setter
@@ -26,6 +25,4 @@ public class RefreshToken extends AuditingFields{
     public static RefreshToken of(String token, Long userId) {
         return new RefreshToken(userId, token);
     }
-
-    public RefreshTokenDto.CreateResDto toCreateResDto() { return RefreshTokenDto.CreateResDto.builder().id(getId()).build(); }
 }

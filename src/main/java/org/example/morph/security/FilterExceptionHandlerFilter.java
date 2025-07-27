@@ -22,13 +22,13 @@ public class FilterExceptionHandlerFilter extends OncePerRequestFilter {
         try{
             filterChain.doFilter(request, response);
         } catch (TokenExpiredException e){
-            System.out.println("filter UNAUTHORIZED!!!");
-            //throw new NoAuthException("Invalid Access Token");
+            System.out.println("filter UNAUTHORIZED.");
 
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            response.setStatus(HttpStatus.UNAUTHORIZED.value()); // 401
+            response.setContentType(MediaType.APPLICATION_JSON_VALUE); // application/json
+
             try{
-                response.getWriter().write("Invalid Access Token");
+                response.getWriter().write("Invalid Access Token.");
             }catch (IOException i){
                 i.printStackTrace();
             }
