@@ -1,76 +1,143 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>User Signup</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+    <title>Signup</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="/sb-admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="/sb-admin/css/sb-admin-2.min.css" rel="stylesheet">
+
 </head>
-<body>
 
-<div>
-    <a href="..">Home</a>
-    <a href="login">Login</a>
-</div>
+<body class="bg-gradient-primary">
 
-<h1>User Signup</h1>
+    <div class="container">
 
-<div>
-    <label>Username</label>
-    <br/>
-    <input type="text" name = "username" id="username" placeholder="Username"/>
-    <br/>
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
 
-    <label>Password</label>
-    <br/>
-    <input type="password" name = "password" id="password" placeholder="Password"/>
-    <br/>
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Create an Account</h1>
+                            </div>
 
-    <label>Email</label>
-    <br/>
-    <input type="text" name = "email" id="email" placeholder="Email"/>
-    <br/>
+                            <form class="user">
+                                <div class="form-group row">
 
-    <label>University</label>
-    <br/>
-    <input type="text" name = "university" id="university" placeholder="University"/>
-    <br/>
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="text" class="form-control form-control-user" id="username"
+                                            placeholder="Username">
+                                    </div>
 
-    <label>Nickname</label>
-    <br/>
-    <input type="text" name = "nickname" id="nickname" placeholder="nickname"/>
-    <br/>
+                                    <div class="col-sm-6">
+                                        <input type="password" class="form-control form-control-user" id="password"
+                                            placeholder="Password">
+                                    </div>
 
-    <button onclick="signup()">Signup</button>
-</div>
+                                </div>
 
-<script>
-    function signup() {
+                                <div class="form-group">
+                                    <input type="email" class="form-control form-control-user" id="email"
+                                        placeholder="Email Address">
+                                </div>
 
-        let data = {
-            username: $('#username').val(),
-            password: $('#password').val(),
-            email: $('#email').val(),
-            university: $('#university').val(),
-            nickname: $('#nickname').val()
-        };
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="text" class="form-control form-control-user"
+                                            id="university" placeholder="University">
+                                    </div>
 
-        $.ajax({
-            url: "/api/user/signup",
-            method: "POST",
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data),
-            success: (data, status, xhr)=>{
-                alert(JSON.stringify(data));
-            },
-            error: (data, status, xhr)=>{
-                alert(JSON.stringify(data));
-            }
-        });
-    }
-</script>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-user"
+                                            id="nickname" placeholder="Nickname">
+                                    </div>
+                                </div>
+
+                                <a onclick="signup()" class="btn btn-primary btn-user btn-block">Signup</a>
+
+                                <hr>
+
+                                <a href="/home" class="btn btn-google btn-user btn-block">
+                                    <i class="fab fa-google fa-fw"></i> Register with Google
+                                </a>
+
+                                <a href="/home" class="btn btn-facebook btn-user btn-block">
+                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
+                                </a>
+                            </form>
+
+                            <hr>
+
+                            <div class="text-center">
+                                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                            </div>
+
+                            <div class="text-center">
+                                <a class="small" href="login.html">Already have an account? Login!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/sb-admin/vendor/jquery/jquery.min.js"></script>
+    <script src="/sb-admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/sb-admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/sb-admin/js/sb-admin-2.min.js"></script>
+
+    <!-- function -->
+    <script>
+        function signup() {
+
+            let data = {
+                username: $('#username').val(),
+                password: $('#password').val(),
+                email: $('#email').val(),
+                university: $('#university').val(),
+                nickname: $('#nickname').val()
+            };
+
+            $.ajax({
+                url: "/api/user/signup",
+                method: "POST",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data),
+                success: (data, status, xhr)=>{
+                    alert(JSON.stringify(data));
+                },
+                error: (data, status, xhr)=>{
+                    alert(JSON.stringify(data));
+                }
+            });
+        }
+    </script>
 
 </body>
+
 </html>
