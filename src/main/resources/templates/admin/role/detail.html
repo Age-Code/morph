@@ -44,12 +44,9 @@
 
                     <div class="form-group row mt-6">
                         <div class="col-sm-8 offset-sm-8 text-end">
-                            <button class="btn btn-info" id="detail_role_btn" onclick="detail_role()">Load</button>
-                        </div>
-
-                        <div class="col-sm-8 offset-sm-8 text-end">
-                            <button class="btn btn-primary" id="update_role_btn" onclick="detail_role()">Update</button>
-                            <button class="btn btn-danger" id="delete_role_btn" onclick="detail_role()">Delete</button>
+                            <button class="btn btn-info m-1" id="detail_role_btn" onclick="detail_role()">Load</button>
+                            <a class="btn btn-primary m-1" id="update_role_btn" href="/admin/role/update">Update</a>
+                            <button class="btn btn-danger m-1" id="delete_role_btn" onclick="detail_role()">Delete</button>
                         </div>
                     </div>
 
@@ -95,6 +92,7 @@
                     id: Number(role_id)
                 },
                 success: (data, status, xhr)=>{
+                    $("#update_role_btn").attr("href", "/admin/role/update/" + role_id);
                     $("#role_name").val(data["roleName"]);
                     $("#role_content").val(data["content"]);
                 },
