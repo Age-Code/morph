@@ -2,20 +2,40 @@ package org.example.morph.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.example.morph.dto.RoleDto;
+import org.example.morph.mapper.RoleMapper;
 import org.example.morph.repository.RoleRepository;
 import org.example.morph.service.RoleService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
 public class RoleServiceimpl implements RoleService {
 
     final RoleRepository roleRepository;
+    final RoleMapper roleMapper;
 
     // Create
     @Override
     public RoleDto.CreateResDto create(RoleDto.CreateSevDto createSevDto) {
         RoleDto.CreateResDto res = roleRepository.save(createSevDto.toEntity()).toCreateResDto();
+
+        return res;
+    }
+
+    // Detail
+    @Override
+    public RoleDto.DetailResDto detail(RoleDto.DetailSevDto detailSevDto){
+        RoleDto.DetailResDto res = roleMapper.detail(detailSevDto);
+
+        return res;
+    }
+
+    // List
+    @Override
+    public List<RoleDto.ListResDto> list(RoleDto.ListSevDto listSevDto){
+        List<RoleDto.ListResDto> res = roleMapper.list(listSevDto);
 
         return res;
     }

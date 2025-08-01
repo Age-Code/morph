@@ -7,10 +7,9 @@ import org.example.morph.service.RoleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/role")
@@ -31,11 +30,27 @@ public class RoleRestController {
     @PostMapping("")
     public ResponseEntity<RoleDto.CreateResDto> create(@RequestBody RoleDto.CreateReqDto createReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        Long reqUserId = getReqUserId(principalDetails);
-
-        RoleDto.CreateSevDto createSevDto = RoleDto.CreateSevDto.builder().reqUserId(reqUserId).build();
+        RoleDto.CreateSevDto createSevDto = RoleDto.CreateSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
         createSevDto = (RoleDto.CreateSevDto) createSevDto.afterBuild(createReqDto);
 
         return ResponseEntity.ok(roleService.create(createSevDto));
+    }
+
+    @GetMapping("/detail")
+    public ResponseEntity<RoleDto.DetailResDto> detail(RoleDto.DetailReqDto detailReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails){
+
+        RoleDto.DetailSevDto detailSevDto = RoleDto.DetailSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
+        detailSevDto = (RoleDto.DetailSevDto) detailSevDto.afterBuild(detailReqDto);
+
+        return ResponseEntity.ok(roleService.detail(detailSevDto));
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<RoleDto.ListResDto>> list(RoleDto.ListReqDto listReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        RoleDto.ListSevDto listSevDto = RoleDto.ListSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
+        listSevDto = (RoleDto.ListSevDto) listSevDto.afterBuild(listReqDto);
+
+        return ResponseEntity.ok(roleService.list(listSevDto));
     }
 }

@@ -1,13 +1,10 @@
-package org.example.morph.service;
+package org.example.morph.mapper;
 
 import org.example.morph.dto.RoleDto;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public interface RoleService {
-    RoleDto.CreateResDto create(RoleDto.CreateSevDto createSevDto);
+public interface RoleMapper {
     RoleDto.DetailResDto detail(RoleDto.DetailSevDto detailSevDto);
     List<RoleDto.ListResDto> list(RoleDto.ListSevDto listSevDto);
 }
