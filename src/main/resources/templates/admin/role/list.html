@@ -139,19 +139,7 @@
                     "Authorization" : localStorage.getItem("Authorization")
                 },
                 success: (data, status, xhr)=>{
-                    $("#table_body").html("");
-                    for(let each of data){
-                        $("#table_body").append(
-                            "<tr>"
-                            + "<td>" + each["id"] + "</td>"
-                            + "<td onclick='location.href = \"/admin/role/detail/" + each["id"] + "\"'>" + each["roleName"] + "</td>"
-                            + "<td>" + each["userId"] + "</td>"
-                            + "<td>" + each["deleted"] + "</td>"
-                            + "<td>" + each["createdAt"] + "</td>"
-                            + "<td>" + each["modifiedAt"] + "</td>"
-                            + "</tr>"
-                        );
-                    }
+
                 },
                 error: (data, status, xhr)=>{
                     alert(JSON.stringify(data));
