@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.morph.dto.RoleDto;
 import org.example.morph.security.PrincipalDetails;
 import org.example.morph.service.RoleService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -38,7 +39,7 @@ public class RoleRestController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/detail")
-    public ResponseEntity<RoleDto.DetailResDto> detail(RoleDto.DetailReqDto detailReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails){
+    public ResponseEntity<RoleDto.DetailResDto> detail(RoleDto.DetailReqDto detailReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         RoleDto.DetailSevDto detailSevDto = RoleDto.DetailSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
         detailSevDto = (RoleDto.DetailSevDto) detailSevDto.afterBuild(detailReqDto);
@@ -54,5 +55,15 @@ public class RoleRestController {
         listSevDto = (RoleDto.ListSevDto) listSevDto.afterBuild(listReqDto);
 
         return ResponseEntity.ok(roleService.list(listSevDto));
+    }
+
+    @DeleteMapping("")
+    public ResponseEntity<Void> delete(@RequestBody RoleDto.DeleteReqDto deleteReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        RoleDto.DeleteSevDto deleteSevDto = RoleDto.DeleteSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
+        deleteSevDto = (RoleDto.DeleteSevDto) deleteSevDto.afterBuild(deleteReqDto);
+        roleService.delete(deleteSevDto);
+
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

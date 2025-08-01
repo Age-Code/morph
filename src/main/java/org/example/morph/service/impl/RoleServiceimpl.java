@@ -1,6 +1,7 @@
 package org.example.morph.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.example.morph.domain.Role;
 import org.example.morph.dto.RoleDto;
 import org.example.morph.mapper.RoleMapper;
 import org.example.morph.repository.RoleRepository;
@@ -38,5 +39,17 @@ public class RoleServiceimpl implements RoleService {
         List<RoleDto.ListResDto> res = roleMapper.list(listSevDto);
 
         return res;
+    }
+
+    @Override
+    public void delete(RoleDto.DeleteSevDto deleteSevDto){
+        Role role = roleRepository.findById(deleteSevDto.getId()).orElse(null);
+        if(role == null){
+            throw new RuntimeException("no data");
+        }
+
+        role.setDeleted(true);
+
+        roleRepository.save(role);
     }
 }

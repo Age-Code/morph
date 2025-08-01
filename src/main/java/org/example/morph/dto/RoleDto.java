@@ -45,20 +45,13 @@ public class RoleDto {
     // Detail Response Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
     public static class DetailResDto {
-        Long id;
         String roleName;
         String content;
-        Long userId;
-        Boolean deleted;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-        LocalDateTime createdAt;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-        LocalDateTime modifiedAt;
     }
 
     // List Request Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-    public static class ListReqDto extends DefaultDto.BaseDto{
+    public static class ListReqDto extends DefaultDto.BaseDto {
         Boolean deleted;
     }
 
@@ -79,6 +72,18 @@ public class RoleDto {
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
+    }
+
+    // Delete Request Dto
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class DeleteReqDto extends DefaultDto.BaseDto {
+        Long id;
+    }
+
+    // Delete Service Dto
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class DeleteSevDto extends DeleteReqDto {
+        Long reqUserId;
     }
 
 }
