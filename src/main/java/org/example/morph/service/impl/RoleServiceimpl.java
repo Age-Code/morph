@@ -41,6 +41,25 @@ public class RoleServiceimpl implements RoleService {
         return res;
     }
 
+    // Update
+    @Override
+    public void update(RoleDto.UpdateSevDto updateSevDto){
+        Role role = roleRepository.findById(updateSevDto.getId()).orElse(null);
+        if(role == null){
+            throw new RuntimeException("no data");
+        }
+
+        if(updateSevDto.getRoleName() != null){
+            role.setRoleName(updateSevDto.getRoleName());
+        }
+        if(updateSevDto.getContent() != null){
+            role.setContent(updateSevDto.getContent());
+        }
+
+        roleRepository.save(role);
+    }
+
+    // Delete
     @Override
     public void delete(RoleDto.DeleteSevDto deleteSevDto){
         Role role = roleRepository.findById(deleteSevDto.getId()).orElse(null);

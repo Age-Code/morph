@@ -10,5 +10,6 @@ public interface RoleService {
     RoleDto.CreateResDto create(RoleDto.CreateSevDto createSevDto);
     RoleDto.DetailResDto detail(RoleDto.DetailSevDto detailSevDto);
     List<RoleDto.ListResDto> list(RoleDto.ListSevDto listSevDto);
+    void update(RoleDto.UpdateSevDto updateSevDto);
     void delete(RoleDto.DeleteSevDto deleteSevDto);
 }

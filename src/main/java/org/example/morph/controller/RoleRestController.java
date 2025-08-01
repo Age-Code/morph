@@ -57,6 +57,18 @@ public class RoleRestController {
         return ResponseEntity.ok(roleService.list(listSevDto));
     }
 
+    @PreAuthorize("hasRole('USER')")
+    @PutMapping("")
+    public ResponseEntity<Void> update(@RequestBody RoleDto.UpdateReqDto updateReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        RoleDto.UpdateSevDto updateSevDto = RoleDto.UpdateSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
+        updateSevDto = (RoleDto.UpdateSevDto) updateSevDto.afterBuild(updateReqDto);
+        roleService.update(updateSevDto);
+
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PreAuthorize("hasRole('USER')")
     @DeleteMapping("")
     public ResponseEntity<Void> delete(@RequestBody RoleDto.DeleteReqDto deleteReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 

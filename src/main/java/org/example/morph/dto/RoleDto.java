@@ -74,6 +74,20 @@ public class RoleDto {
         LocalDateTime modifiedAt;
     }
 
+    // Update Request Dto
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class UpdateReqDto extends DefaultDto.BaseDto {
+        Long id;
+        String roleName;
+        String content;
+    }
+
+    // Update Service Dto
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class UpdateSevDto extends UpdateReqDto {
+        Long reqUserId;
+    }
+
     // Delete Request Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
     public static class DeleteReqDto extends DefaultDto.BaseDto {
