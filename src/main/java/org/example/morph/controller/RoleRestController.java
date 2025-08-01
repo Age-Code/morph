@@ -36,6 +36,7 @@ public class RoleRestController {
         return ResponseEntity.ok(roleService.create(createSevDto));
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/detail")
     public ResponseEntity<RoleDto.DetailResDto> detail(RoleDto.DetailReqDto detailReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails){
 
@@ -45,6 +46,7 @@ public class RoleRestController {
         return ResponseEntity.ok(roleService.detail(detailSevDto));
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/list")
     public ResponseEntity<List<RoleDto.ListResDto>> list(RoleDto.ListReqDto listReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
