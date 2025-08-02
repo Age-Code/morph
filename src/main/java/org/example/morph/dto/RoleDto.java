@@ -6,8 +6,16 @@ import lombok.experimental.SuperBuilder;
 import org.example.morph.domain.Role;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class RoleDto {
+
+    public static String[] permissions = {
+            "Role",
+            "User",
+            "Notice",
+            "FAQ"
+    };
 
     // Create Request Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
@@ -47,6 +55,9 @@ public class RoleDto {
     public static class DetailResDto {
         String roleName;
         String content;
+
+        String[] permissions;
+        List<PermissionDto.ListResDto> permissionList;
     }
 
     // List Request Dto
