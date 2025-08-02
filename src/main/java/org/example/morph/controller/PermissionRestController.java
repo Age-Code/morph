@@ -1,23 +1,20 @@
 package org.example.morph.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.morph.dto.RoleDto;
+import org.example.morph.dto.PermissionDto;
 import org.example.morph.security.PrincipalDetails;
-import org.example.morph.service.RoleService;
-import org.springframework.http.HttpStatus;
+import org.example.morph.service.PermissionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RequiredArgsConstructor
-@RequestMapping("/api/role")
+@RequestMapping("/api/permision")
 @RestController
 public class PermissionRestController {
 
-    final RoleService roleService;
+    final PermissionService permissionService;
 
     public Long getReqUserId(PrincipalDetails principalDetails) {
         if(principalDetails == null || principalDetails.getUser() == null || principalDetails.getUser().getId() == null) {
@@ -28,54 +25,13 @@ public class PermissionRestController {
     }
 
     @PreAuthorize("hasRole('USER')")
-    @PostMapping("")
-    public ResponseEntity<RoleDto.CreateResDto> create(@RequestBody RoleDto.CreateReqDto createReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    @PostMapping("/toggle")
+    public ResponseEntity<PermissionDto.ToggleResDto> toggle(@RequestBody PermissionDto.ToggleReqDto toggleReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        RoleDto.CreateSevDto createSevDto = RoleDto.CreateSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
-        createSevDto = (RoleDto.CreateSevDto) createSevDto.afterBuild(createReqDto);
+        PermissionDto.ToggleSevDto toggleSevDto = PermissionDto.ToggleSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
+        toggleSevDto = (PermissionDto.ToggleSevDto) toggleSevDto.afterBuild(toggleReqDto);
 
-        return ResponseEntity.ok(roleService.create(createSevDto));
+        return ResponseEntity.ok(permissionService.toggle(toggleSevDto));
     }
 
-    @PreAuthorize("hasRole('USER')")
-    @GetMapping("/detail")
-    public ResponseEntity<RoleDto.DetailResDto> detail(RoleDto.DetailReqDto detailReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-
-        RoleDto.DetailSevDto detailSevDto = RoleDto.DetailSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
-        detailSevDto = (RoleDto.DetailSevDto) detailSevDto.afterBuild(detailReqDto);
-
-        return ResponseEntity.ok(roleService.detail(detailSevDto));
-    }
-
-    @PreAuthorize("hasRole('USER')")
-    @GetMapping("/list")
-    public ResponseEntity<List<RoleDto.ListResDto>> list(RoleDto.ListReqDto listReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-
-        RoleDto.ListSevDto listSevDto = RoleDto.ListSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
-        listSevDto = (RoleDto.ListSevDto) listSevDto.afterBuild(listReqDto);
-
-        return ResponseEntity.ok(roleService.list(listSevDto));
-    }
-
-    @PreAuthorize("hasRole('USER')")
-    @PutMapping("")
-    public ResponseEntity<Void> update(@RequestBody RoleDto.UpdateReqDto updateReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-
-        RoleDto.UpdateSevDto updateSevDto = RoleDto.UpdateSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
-        updateSevDto = (RoleDto.UpdateSevDto) updateSevDto.afterBuild(updateReqDto);
-        roleService.update(updateSevDto);
-
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
-
-    @PreAuthorize("hasRole('USER')")
-    @DeleteMapping("")
-    public ResponseEntity<Void> delete(@RequestBody RoleDto.DeleteReqDto deleteReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-
-        RoleDto.DeleteSevDto deleteSevDto = RoleDto.DeleteSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
-        deleteSevDto = (RoleDto.DeleteSevDto) deleteSevDto.afterBuild(deleteReqDto);
-        roleService.delete(deleteSevDto);
-
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
 }
