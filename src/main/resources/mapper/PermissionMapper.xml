@@ -8,7 +8,7 @@
                permission.func
         FROM permission
         WHERE permission.role_id = #{roleId}
-        <if test = "deleted != null">AND role.deleted = #{deleted}</if>
+        <if test = "deleted != null">AND permission.deleted = #{deleted}</if>
     </select>
 
 </mapper>

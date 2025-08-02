@@ -50,6 +50,31 @@
                         </div>
                     </div>
 
+                    <ul class="nav nav-tabs">
+                        <li><a class="nav-link active" data-toggle="tab" href="#tab-part">권한 상세</a></li>
+                        <li><a class="nav-link" data-toggle="tab" href="#tab-user" onclick="search_permissionuser();">권한 사용자</a></li>
+                    </ul>
+
+                    <div class="tab-content bg-white">
+                        <div id="tab-part" class="tab-pane active">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr><th>권한상세</th><th>전체</th><th>입력</th><th>수정</th><th>조회</th></tr>
+                                </thead>
+                                <tbody id="tbody_permissiondetail_list"></tbody>
+                            </table>
+                        </div>
+                        <div id="tab-user" class="tab-pane">
+                            <div class="text-right">
+                                <button type="button" class="btn btn-primary btn-sm m-2" data-toggle="modal" data-target="#createPermissionuser">추가하기</button>
+                            </div>
+                            <table class="table table-bordered">
+                                <thead><tr><th>#</th><th>사용자ID</th><th>/</th></tr></thead>
+                                <tbody id="tbody_permissionuser_list"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
                 <!-- /.container-fluid -->
 
@@ -92,6 +117,7 @@
                     id: Number(role_id)
                 },
                 success: (data, status, xhr)=>{
+                    alert(JSON.stringify(data));
                     $("#update_role_btn").attr("href", "/admin/role/update/" + role_id);
                     $("#role_name").val(data["roleName"]);
                     $("#role_content").val(data["content"]);

@@ -10,11 +10,11 @@ import java.util.List;
 
 public class RoleDto {
 
-    public static String[] permissions = {
-            "Role",
-            "User",
-            "Notice",
-            "FAQ"
+    public static String[][] permissions = {
+            {"role", "ROLE"},
+            {"user", "USER"},
+            {"notice", "NOTICE"},
+            {"faq", "FAQ"}
     };
 
     // Create Request Dto
@@ -56,7 +56,7 @@ public class RoleDto {
         String roleName;
         String content;
 
-        String[] permissions;
+        String[][] permissions;
         List<PermissionDto.ListResDto> permissionList;
     }
 
