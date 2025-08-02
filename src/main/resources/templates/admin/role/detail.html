@@ -50,28 +50,44 @@
                         </div>
                     </div>
 
-                    <ul class="nav nav-tabs">
-                        <li><a class="nav-link active" data-toggle="tab" href="#tab-part">권한 상세</a></li>
-                        <li><a class="nav-link" data-toggle="tab" href="#tab-user" onclick="search_permissionuser();">권한 사용자</a></li>
-                    </ul>
 
-                    <div class="tab-content bg-white">
-                        <div id="tab-part" class="tab-pane active">
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr><th>권한상세</th><th>전체</th><th>입력</th><th>수정</th><th>조회</th></tr>
-                                </thead>
-                                <tbody id="tbody_permissiondetail_list"></tbody>
-                            </table>
+                    <!-- Permission Table -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 nav nav-tabs" style="position: relative; height: 65px;">
+                            <a class="nav-link active" style="position: absolute; bottom: 0; left: 20px;" data-toggle="tab" href="#tab-part">Permission</a>
+                            <a class="nav-link"  style="position: absolute; bottom: 0; left: 135px;" data-toggle="tab" href="#tab-user" onclick="search_permissionuser();">User</a>
                         </div>
-                        <div id="tab-user" class="tab-pane">
-                            <div class="text-right">
-                                <button type="button" class="btn btn-primary btn-sm m-2" data-toggle="modal" data-target="#createPermissionuser">추가하기</button>
+                        <div class="tab-content card-body">
+                            <div id="tab-part" class="tab-pane active">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Permission</th>
+                                        <th>All</th>
+                                        <th>Create</th>
+                                        <th>Read</th>
+                                        <th>Update</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="permission_list">
+                                    </tbody>
+                                </table>
                             </div>
-                            <table class="table table-bordered">
-                                <thead><tr><th>#</th><th>사용자ID</th><th>/</th></tr></thead>
-                                <tbody id="tbody_permissionuser_list"></tbody>
-                            </table>
+
+                            <div id="tab-user" class="tab-pane">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>User ID</th>
+                                        <th>/</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tbody_permissionuser_list">
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
 
@@ -117,12 +133,36 @@
                     id: Number(role_id)
                 },
                 success: (data, status, xhr)=>{
-                    alert(JSON.stringify(data));
                     $("#update_role_btn").attr("href", "/admin/role/update/" + role_id);
                     $("#role_name").val(data["roleName"]);
                     $("#role_content").val(data["content"]);
+                    $("#permission_list").html("");
+
+                    let permissions = data["permissions"];
+                    for (let each of permissions) {
+                        let tList = [];
+                        let eachData = {};
+                        eachData["permission"] = each[0];
+                        eachData["title"] = each[1];
+                        tList.push(eachData);
+                        $("#permission_list").append(
+                            "<tr>"
+                            + "<td>" + each[1] + "</td>"
+                            + "<td><input type=\"checkbox\" id=\"" + each[0] + "_0\" /></td>"
+                            + "<td><input type=\"checkbox\" id=\"" + each[0] + "_120\" /></td>"
+                            + "<td><input type=\"checkbox\" id=\"" + each[0] + "_150\" /></td>"
+                            + "<td><input type=\"checkbox\" id=\"" + each[0] + "_180\" /></td>"
+                            + "<td><input type=\"checkbox\" id=\"" + each[0] + "_200\" /></td>"
+                            + "</tr>"
+                        );
+                    }
+
+                    let permissionList = data["permissionList"];
+                    for (let each of permissionList) {
+                        $("#" + each["permission"] + "_" + each["func"]).prop("checked", true);
+                    }
                 },
-                error: (data, status, xhr)=>{
+                error: (data, status, xhr) => {
                     alert(JSON.stringify(data));
                 }
             });
