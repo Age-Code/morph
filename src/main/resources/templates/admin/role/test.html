@@ -280,11 +280,11 @@
     //     }
     //     func_ajax(_data);
     // }
-    function toggle_permissiondetail(obj_alive, obj_target, obj_func) {
+    function toggle_permissiondetail(obj_active, obj_target, obj_func) {
         let _param = {
             'permissionId': role_id
-            , 'alive': obj_alive
-            , 'target': obj_target
+            , 'active': obj_alive
+            , 'permission': obj_target
             , 'func': obj_func
         };
         let _data = {};
