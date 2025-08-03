@@ -8,13 +8,14 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Table(
       indexes = {
+              @Index(columnList = "deleted"),
               @Index(columnList = "roleId"),
-              @Index(columnList = "permissionId"),
+              @Index(columnList = "permission"),
               @Index(columnList = "func")
       }
       ,uniqueConstraints = {
               @UniqueConstraint(
-                      name = "UQ_permission_permissionId_roleId_func",
+                      name = "UQ_permission_roleId_permission_func",
                       columnNames = {"roleId", "permission", "func"}
               )
       }
