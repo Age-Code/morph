@@ -60,15 +60,9 @@ public class RoleDto {
         List<PermissionDto.ListResDto> permissionList;
     }
 
-    // List Request Dto
-    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-    public static class ListReqDto extends DefaultDto.BaseDto {
-        Boolean deleted;
-    }
-
     // List Service Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-    public static class ListSevDto extends ListReqDto {
+    public static class ListSevDto {
         Long reqUserId;
     }
 

@@ -19,7 +19,6 @@
              , role.deleted
         FROM role
         WHERE role.id is not NULL
-        <if test = "deleted != null">AND role.deleted =  #{deleted}</if>
     </select>
 
 </mapper>

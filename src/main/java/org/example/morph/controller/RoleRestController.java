@@ -49,10 +49,9 @@ public class RoleRestController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/list")
-    public ResponseEntity<List<RoleDto.ListResDto>> list(RoleDto.ListReqDto listReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public ResponseEntity<List<RoleDto.ListResDto>> list(@AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         RoleDto.ListSevDto listSevDto = RoleDto.ListSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
-        listSevDto = (RoleDto.ListSevDto) listSevDto.afterBuild(listReqDto);
 
         return ResponseEntity.ok(roleService.list(listSevDto));
     }
