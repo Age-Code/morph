@@ -46,7 +46,7 @@
                         <div class="col-sm-8 offset-sm-8 text-end">
                             <button class="btn btn-info m-1" id="detail_role_btn" onclick="detail_role()">Load</button>
                             <button class="btn btn-primary m-1" id="update_role_btn" onclick="update_role()">Update</button>
-                            <button class="btn btn-danger m-1" id="delete_role_btn" onclick="detail_role()">Delete</button>
+                            <button class="btn btn-danger m-1" id="delete_role_btn" onclick="delete_role()">Delete</button>
                         </div>
                     </div>
 
@@ -212,6 +212,27 @@
                     alert(JSON.stringify(status));
                 },
                 error: (data, status, xhr) => {
+                    alert(JSON.stringify(data));
+                }
+            });
+        }
+
+        function delete_role(){
+            $.ajax({
+                url: "/api/role",
+                method: "DELETE",
+                contentType: 'application/json; charset=utf-8',
+                headers: {
+                    "Authorization": localStorage.getItem("Authorization")
+                },
+                data: JSON.stringify({
+                    id: Number(role_id)
+                }),
+                success: (data, status, xhr)=>{
+                    alert(status);
+                    location.href = "admin/role/list";
+                },
+                error: (data, status, xhr)=>{
                     alert(JSON.stringify(data));
                 }
             });
