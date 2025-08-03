@@ -91,6 +91,8 @@ public class RoleDto {
         Long id;
         String roleName;
         String content;
+
+        List<PermissionDto.ToggleSevDto> permissionUpdate;
     }
 
     // Update Service Dto

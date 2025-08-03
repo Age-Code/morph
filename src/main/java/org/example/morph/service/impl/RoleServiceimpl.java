@@ -33,7 +33,7 @@ public class RoleServiceimpl implements RoleService {
     public RoleDto.DetailResDto detail(RoleDto.DetailSevDto detailSevDto){
         RoleDto.DetailResDto res = roleMapper.detail(detailSevDto);
 
-        res.setPermissionList(permissionService.list(PermissionDto.ListSevDto.builder().deleted(false).roleId(detailSevDto.getId()).build()));
+        res.setPermissionList(permissionService.list(PermissionDto.ListSevDto.builder().deleted(false).roleId(detailSevDto.getId()).reqUserId(detailSevDto.getReqUserId()).build()));
         res.setPermissions(RoleDto.permissions);
 
         return res;
@@ -60,6 +60,13 @@ public class RoleServiceimpl implements RoleService {
         }
         if(updateSevDto.getContent() != null){
             role.setContent(updateSevDto.getContent());
+        }
+
+        if (updateSevDto.getPermissionUpdate() != null) {
+            for (PermissionDto.ToggleSevDto each : updateSevDto.getPermissionUpdate()) {
+                each.setRoleId(role.getId());
+                permissionService.toggle(each);
+            }
         }
 
         roleRepository.save(role);

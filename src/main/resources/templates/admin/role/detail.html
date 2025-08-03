@@ -121,6 +121,8 @@
     <script>
         let role_id = window.location.pathname.split("/").pop();
 
+        let detail_permission = new Set();
+
         function detail_role() {
             $.ajax({
                 url: "/api/role/detail",
@@ -148,11 +150,11 @@
                         $("#permission_list").append(
                             "<tr>"
                             + "<td>" + each[1] + "</td>"
-                            + "<td><input type=\"checkbox\" id=\"" + each[0] + "_0\" /></td>"
-                            + "<td><input type=\"checkbox\" id=\"" + each[0] + "_120\" /></td>"
-                            + "<td><input type=\"checkbox\" id=\"" + each[0] + "_150\" /></td>"
-                            + "<td><input type=\"checkbox\" id=\"" + each[0] + "_180\" /></td>"
-                            + "<td><input type=\"checkbox\" id=\"" + each[0] + "_200\" /></td>"
+                            + "<td><input type=\"checkbox\" class=\'checkbox_" + each[0] + "\' id=\"" + each[0] + "_0\" /></td>"
+                            + "<td><input type=\"checkbox\" class=\'checkbox_" + each[0] + "\' id=\"" + each[0] + "_120\" /></td>"
+                            + "<td><input type=\"checkbox\" class=\'checkbox_" + each[0] + "\' id=\"" + each[0] + "_150\" /></td>"
+                            + "<td><input type=\"checkbox\" class=\'checkbox_" + each[0] + "\' id=\"" + each[0] + "_180\" /></td>"
+                            + "<td><input type=\"checkbox\" class=\'checkbox_" + each[0] + "\' id=\"" + each[0] + "_200\" /></td>"
                             + "</tr>"
                         );
                     }
@@ -160,6 +162,10 @@
                     let permissionList = data["permissionList"];
                     for (let each of permissionList) {
                         $("#" + each["permission"] + "_" + each["func"]).prop("checked", true);
+
+                        const key = `${each["permission"]}_${each["func"]}`;
+                        detail_permission.add(key);
+                        $("#" + key).prop("checked", true);
                     }
                 },
                 error: (data, status, xhr) => {
@@ -169,6 +175,31 @@
         }
 
         function update_role(){
+            const update_permission = [];
+
+            $("input[type='checkbox']").each(function () {
+                const id = $(this).attr("id");
+                const now_checked = $(this).prop("checked");
+                const old_checked = detail_permission.has(id);
+
+                if (now_checked !== old_checked) {
+                    const [permission, func] = id.split("_");
+                    update_permission.push({
+                        active: now_checked,
+                        roleId: Number(role_id),
+                        permission: permission,
+                        func: parseInt(func)
+                    });
+                }
+            });
+
+            const data = {
+                id: Number(role_id),
+                roleName: $('#role_name').val(),
+                content: $('#role_content').val(),
+                permissionUpdate: update_permission
+            };
+
             $.ajax({
                 url: "/api/role",
                 method: "PUT",
@@ -176,11 +207,7 @@
                 headers:{
                     "Authorization" : localStorage.getItem("Authorization")
                 },
-                data:JSON.stringify({
-                    id: Number(role_id),
-                    roleName: $('#role_name').val(),
-                    content: $('#role_content').val(),
-                }),
+                data:JSON.stringify(data),
                 success: (data, status, xhr)=>{
                     alert(JSON.stringify(status));
                 },
@@ -189,6 +216,7 @@
                 }
             });
         }
+
     </script>
 
 </body>

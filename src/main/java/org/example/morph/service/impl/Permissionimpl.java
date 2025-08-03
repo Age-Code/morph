@@ -23,7 +23,7 @@ public class Permissionimpl implements PermissionService {
     public PermissionDto.ToggleResDto toggle(PermissionDto.ToggleSevDto toggleSevDto){
         Permission permission = permissionRepository.findByRoleIdAndPermissionAndFunc(toggleSevDto.getRoleId(), toggleSevDto.getPermission(), toggleSevDto.getFunc());
 
-        if(permission != null){
+        if(permission == null){
             if(toggleSevDto.getActive()){
                 return permissionRepository.save(toggleSevDto.toEntity()).toToggleResDto();
             }
