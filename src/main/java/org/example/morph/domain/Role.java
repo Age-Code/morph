@@ -13,18 +13,18 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 public class Role extends AuditingFields{
 
-    Long userId;
+    Long createUserId;
     String roleName;
     String content;
 
     protected Role() {}
-    private Role(Long userId, String roleName, String content) {
-        this.userId = userId;
+    private Role(Long createUserId, String roleName, String content) {
+        this.createUserId = createUserId;
         this.roleName = roleName;
         this.content = content;
     }
-    public static Role of(Long userId, String roleName, String content) {
-        return new Role(userId, roleName, content);
+    public static Role of(Long createUserId, String roleName, String content) {
+        return new Role(createUserId, roleName, content);
     }
 
     public RoleDto.CreateResDto toCreateResDto() {

@@ -81,6 +81,9 @@
                                     <tr>
                                         <th>#</th>
                                         <th>UserName</th>
+                                        <th>Deleted</th>
+                                        <th>Added By</th>
+                                        <th>Added At</th>
                                         <th><button class="btn btn-success btn-sm"  onclick="add_role_user()">Add</button></th>
                                     </tr>
                                     </thead>
@@ -135,10 +138,14 @@
                     id: Number(role_id)
                 },
                 success: (data, status, xhr)=>{
+
+                    alert(JSON.stringify(data));
+
                     $("#update_role_btn").attr("href", "/admin/role/update/" + role_id);
                     $("#role_name").val(data["roleName"]);
                     $("#role_content").val(data["content"]);
                     $("#permission_list").html("");
+                    $("#role_user_list").html("");
 
                     let permissions = data["permissions"];
                     for (let each of permissions) {
@@ -166,6 +173,20 @@
                         const key = `${each["permission"]}_${each["func"]}`;
                         detail_permission.add(key);
                         $("#" + key).prop("checked", true);
+                    }
+
+                    let role_user = data["roleUserList"];
+                    for (let each of role_user) {
+                        $("#role_user_list").append(
+                            "<tr>"
+                            + "<td>" + each["userId"] + "</td>"
+                            + "<td>" + each["username"] + "</td>"
+                            + "<td>" + each["userDeleted"] + "</td>"
+                            + "<td>" + each["addUserId"] + "</td>"
+                            + "<td>" + each["addedAt"] + "</td>"
+                            + "<td><button class=\"btn btn-danger btn-sm\"  onclick=\"delete_role_user()\">Delete</button></td>"
+                            + "</tr>"
+                        );
                     }
                 },
                 error: (data, status, xhr) => {

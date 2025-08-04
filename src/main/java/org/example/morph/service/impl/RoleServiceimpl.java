@@ -4,10 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.example.morph.domain.Role;
 import org.example.morph.dto.PermissionDto;
 import org.example.morph.dto.RoleDto;
+import org.example.morph.dto.RoleUserDto;
 import org.example.morph.mapper.RoleMapper;
 import org.example.morph.repository.RoleRepository;
 import org.example.morph.service.PermissionService;
 import org.example.morph.service.RoleService;
+import org.example.morph.service.RoleUserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +20,9 @@ public class RoleServiceimpl implements RoleService {
 
     final RoleRepository roleRepository;
     final RoleMapper roleMapper;
-    private final PermissionService permissionService;
+    final PermissionService permissionService;
+    final RoleUserService roleUserService;
+
 
     // Create
     @Override
@@ -34,6 +38,7 @@ public class RoleServiceimpl implements RoleService {
         RoleDto.DetailResDto res = roleMapper.detail(detailSevDto);
 
         res.setPermissionList(permissionService.list(PermissionDto.ListSevDto.builder().deleted(false).roleId(detailSevDto.getId()).reqUserId(detailSevDto.getReqUserId()).build()));
+        res.setRoleUserList(roleUserService.list(RoleUserDto.ListSevDto.builder().deleted(false).roleId(detailSevDto.getId()).reqUserId(detailSevDto.getReqUserId()).build()));
         res.setPermissions(RoleDto.permissions);
 
         return res;

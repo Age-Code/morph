@@ -27,14 +27,16 @@ public class RoleUser extends AuditingFields{
 
     Long roleId;
     Long userId;
+    Long addUserId;
 
     protected RoleUser() {}
-    private RoleUser(Long roleId, Long userId) {
+    private RoleUser(Long roleId, Long userId, Long addUserId) {
         this.roleId = roleId;
         this.userId = userId;
+        this.addUserId = addUserId;
     }
-    public static RoleUser of(Long roleId, Long userId) {
-        return new RoleUser(roleId, userId);
+    public static RoleUser of(Long roleId, Long userId, Long addUserId) {
+        return new RoleUser(roleId, userId, addUserId);
     }
 
     public RoleUserDto.AddResDto toAddResDto() {return RoleUserDto.AddResDto.builder().id(getId()).build();}

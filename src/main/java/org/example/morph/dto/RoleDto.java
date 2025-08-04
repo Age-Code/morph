@@ -58,6 +58,7 @@ public class RoleDto {
 
         String[][] permissions;
         List<PermissionDto.ListResDto> permissionList;
+        List<RoleUserDto.ListResDto> roleUserList;
     }
 
     // List Service Dto
@@ -71,7 +72,7 @@ public class RoleDto {
     public static class ListResDto {
         Long id;
         String roleName;
-        Long userId;
+        Long createUserId;
         Boolean deleted;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime createdAt;

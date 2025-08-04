@@ -1,11 +1,14 @@
 package org.example.morph.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.example.morph.domain.RoleUser;
+
+import java.time.LocalDateTime;
 
 public class RoleUserDto {
 
@@ -21,7 +24,7 @@ public class RoleUserDto {
     public static class AddSevDto extends RoleUserDto.AddReqDto {
         Long reqUserId;
 
-        public RoleUser toEntity() { return RoleUser.of(getRoleId(), getUserId()); }
+        public RoleUser toEntity() { return RoleUser.of(getRoleId(), getUserId(), getReqUserId()); }
     }
 
     // Add Response Dto
@@ -42,8 +45,12 @@ public class RoleUserDto {
     // List Response Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
     public static class ListResDto {
-        String permission;
-        Integer func;
+        Long userId;
+        String username;
+        Boolean userDeleted;
+        Long addUserId;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+        LocalDateTime addedAt;
     }
 
 }

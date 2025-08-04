@@ -13,7 +13,7 @@
     <select id="list" parameterType="hashMap" resultType="org.example.morph.dto.RoleDto$ListResDto">
         SELECT role.id
              , role.role_name as roleName
-             , role.user_id as userId
+             , role.create_user_id as createUserId
              , role.created_at as createdAt
              , role.modified_at as modifiedAt
              , role.deleted
