@@ -84,7 +84,7 @@
                                         <th>Deleted</th>
                                         <th>Added By</th>
                                         <th>Added At</th>
-                                        <th><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModal">Add</button></th>
+                                        <th><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModal" onclick="list_role_user()">Add</button></th>
                                     </tr>
                                     </thead>
                                     <tbody id="role_user_list">
@@ -129,7 +129,7 @@
                                 <th>UserName</th>
                             </tr>
                         </thead>
-                        <tbody id = "table_body">
+                        <tbody id = "add_role_user">
                         </tbody>
                     </table>
                 </div>
@@ -170,9 +170,6 @@
                     id: Number(role_id)
                 },
                 success: (data, status, xhr)=>{
-
-                    alert(JSON.stringify(data));
-
                     $("#update_role_btn").attr("href", "/admin/role/update/" + role_id);
                     $("#role_name").val(data["roleName"]);
                     $("#role_content").val(data["content"]);
@@ -286,6 +283,71 @@
                     location.href = "/admin/role/list";
                 },
                 error: (data, status, xhr)=>{
+                    alert(JSON.stringify(data));
+                }
+            });
+        }
+
+        function list_role_user(){
+            $.ajax({
+                url: "/api/roleUser/addList",
+                method: "GET",
+                contentType: 'application/json; charset=utf-8',
+                headers:{
+                    "Authorization" : localStorage.getItem("Authorization")
+                },
+                data:{
+                    roleId: Number(role_id)
+                },
+                success: (data, status, xhr)=>{
+                    $("#add_role_user").html("");
+                    for (let each of data) {
+                        $("#add_role_user").append(
+                            "<tr>"
+                            + "<td><input type=\"checkbox\" class=\'checkbox_role_user\' id=\"" + each["userId"] + "\" /></td>"
+                            + "<td>" + each["userId"] + "</td>"
+                            + "<td>" + each["username"] + "</td>"
+                            + "</tr>"
+                        );
+                    }
+                },
+                error: (data, status, xhr) => {
+                    alert(JSON.stringify(data));
+                }
+            });
+        }
+
+        function add_role_user(){
+            const add_role_user = [];
+
+            $("input[type='checkbox'].checkbox_role_user").each(function () {
+                const id = $(this).attr("id");
+                const user_checked = $(this).prop("checked");
+
+                if (user_checked) {
+                    add_role_user.push({
+                        roleId: Number(role_id),
+                        userId: Number(id)
+                    });
+                }
+            });
+
+            const data = {
+                addSevDtoList: add_role_user
+            };
+
+            $.ajax({
+                url: "/api/roleUser/add",
+                method: "POST",
+                contentType: 'application/json; charset=utf-8',
+                headers:{
+                    "Authorization" : localStorage.getItem("Authorization")
+                },
+                data:JSON.stringify(data),
+                success: (data, status, xhr)=>{
+                    alert(JSON.stringify(status));
+                },
+                error: (data, status, xhr) => {
                     alert(JSON.stringify(data));
                 }
             });

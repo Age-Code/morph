@@ -9,19 +9,16 @@ import lombok.experimental.SuperBuilder;
 import org.example.morph.domain.RoleUser;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class RoleUserDto {
 
-    // Add Request Dto
-    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-    public static class AddReqDto extends DefaultDto.BaseDto {
-        Long roleId;
-        Long userId;
-    }
-
     // Add Service Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-    public static class AddSevDto extends RoleUserDto.AddReqDto {
+    public static class AddSevDto{
+        Long roleId;
+        Long userId;
+
         Long reqUserId;
 
         public RoleUser toEntity() { return RoleUser.of(getRoleId(), getUserId(), getReqUserId()); }
@@ -31,6 +28,18 @@ public class RoleUserDto {
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
     public static class AddResDto {
         Long id;
+    }
+
+    // AddUser Request Dto
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class AddUserReqDto extends DefaultDto.BaseDto {
+        List<RoleUserDto.AddSevDto> addSevDtoList;
+    }
+
+    // AddUser Service Dto
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class AddUserSevDto extends AddUserReqDto {
+        Long reqUserId;
     }
 
     // List Service Dto
@@ -69,7 +78,8 @@ public class RoleUserDto {
     // AddList Response Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
     public static class AddListResDto {
-        Long id;
+        Long userId;
+        String username;
     }
 
 }

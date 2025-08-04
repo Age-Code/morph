@@ -22,25 +22,43 @@ public class RoleUserServiceimpl implements RoleUserService {
 
     // Add
     @Override
-    public RoleUserDto.AddResDto add(RoleUserDto.AddSevDto addSevDto) {
+    public void add(RoleUserDto.AddUserSevDto addUserSevDto) {
 
-        RoleUser roleUser = roleUserRepository.findByRoleIdAndUserId(addSevDto.getRoleId(), addSevDto.getUserId());
+        if (addUserSevDto.getAddSevDtoList() != null) {
+            for (RoleUserDto.AddSevDto each : addUserSevDto.getAddSevDtoList()) {
+                each.setReqUserId(addUserSevDto.getReqUserId());
 
-        if(roleUser == null) {
-            roleUser = addSevDto.toEntity();
-        }else{
-            roleUser.setDeleted(false);
+                RoleUser roleUser = roleUserRepository.findByRoleIdAndUserId(each.getRoleId(), each.getUserId());
+
+                if(roleUser == null) {
+                    roleUser = each.toEntity();
+                }else{
+                    roleUser.setDeleted(false);
+                }
+
+                roleUserRepository.save(roleUser).toAddResDto();
+            }
         }
-
-        RoleUserDto.AddResDto res = roleUserRepository.save(roleUser).toAddResDto();
-
-        return res;
     }
 
     // List
     @Override
     public List<RoleUserDto.ListResDto> list(RoleUserDto.ListSevDto listSevDto){
+
+        listSevDto.setDeleted(false);
+
         List<RoleUserDto.ListResDto> res = roleUserMapper.list(listSevDto);
+
+        return res;
+    }
+
+    // AddList
+    @Override
+    public List<RoleUserDto.AddListResDto> addList(RoleUserDto.AddListSevDto addListSevDto){
+
+        addListSevDto.setDeleted(true);
+
+        List<RoleUserDto.AddListResDto> res = roleUserMapper.addList(addListSevDto);
 
         return res;
     }

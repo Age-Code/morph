@@ -5,6 +5,7 @@ import org.example.morph.dto.RoleDto;
 import org.example.morph.dto.RoleUserDto;
 import org.example.morph.security.PrincipalDetails;
 import org.example.morph.service.RoleUserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -29,19 +30,21 @@ public class RoleUserRestController {
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/add")
-    public ResponseEntity<RoleUserDto.AddResDto> add(@RequestBody RoleUserDto.AddReqDto addReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public ResponseEntity<Void> add(@RequestBody RoleUserDto.AddUserReqDto addUserReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        RoleUserDto.AddSevDto addSevDto = RoleUserDto.AddSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
-        addSevDto = (RoleUserDto.AddSevDto) addSevDto.afterBuild(addReqDto);
+        RoleUserDto.AddUserSevDto addUserSevDto = RoleUserDto.AddUserSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
+        addUserSevDto = (RoleUserDto.AddUserSevDto) addUserSevDto.afterBuild(addUserReqDto);
+        roleUserService.add(addUserSevDto);
 
-        return ResponseEntity.ok(roleUserService.add(addSevDto));
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/addList")
-    public ResponseEntity<List<RoleUserDto.AddListResDto>> addList(RoleUserDto.AddListReqDto detailReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public ResponseEntity<List<RoleUserDto.AddListResDto>> addList(RoleUserDto.AddListReqDto addListReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         RoleUserDto.AddListSevDto addListSevDto = RoleUserDto.AddListSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
+        addListSevDto = (RoleUserDto.AddListSevDto) addListSevDto.afterBuild(addListReqDto);
 
         return ResponseEntity.ok(roleUserService.addList(addListSevDto));
     }

@@ -8,6 +8,7 @@ import java.util.List;
 
 @Service
 public interface RoleUserService {
-    RoleUserDto.AddResDto add(RoleUserDto.AddSevDto addSevDto);
+    void add(RoleUserDto.AddUserSevDto addUserSevDto);
     List<RoleUserDto.ListResDto> list(RoleUserDto.ListSevDto listSevDto);
+    List<RoleUserDto.AddListResDto> addList(RoleUserDto.AddListSevDto addListSevDto);
 }

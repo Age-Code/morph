@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.morph.mapper.PermissionMapper">
 
-    <!---->
+    <!--List-->
     <select id="list" parameterType="hashMap" resultType="org.example.morph.dto.PermissionDto$ListResDto">
         SELECT permission.permission,
                permission.func

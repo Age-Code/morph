@@ -2,17 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.morph.mapper.RoleUserMapper">
 
-    <!---->
+    <!--List-->
     <select id="list" parameterType="hashMap" resultType="org.example.morph.dto.RoleUserDto$ListResDto">
         SELECT role_user.user_id as userId,
                role_user.modified_at as addedAt,
                role_user.add_user_id as addUserId,
                user.username,
                user.deleted as userDeleted
-        FROM role_user, user
+        FROM role_user
+        JOIN user ON role_user.user_id = user.id
         WHERE role_user.role_id = #{roleId}
         <if test = "deleted != null">AND role_user.deleted = #{deleted}</if>
-        AND role_user.user_id = user.id
+    </select>
+
+    <!--AddList-->
+    <select id="addList" parameterType="hashMap" resultType="org.example.morph.dto.RoleUserDto$AddListResDto">
+        SELECT user.id as userId,
+               user.username
+        FROM user
+        LEFT JOIN role_user ON user.id = role_user.user_id
+                      AND role_user.role_id = #{roleId}
+        WHERE (role_user.user_id IS NULL
+        <if test = "deleted != null">OR role_user.deleted = #{deleted}</if>)
     </select>
 
 </mapper>
