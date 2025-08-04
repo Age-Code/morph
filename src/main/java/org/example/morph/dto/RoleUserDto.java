@@ -64,20 +64,20 @@ public class RoleUserDto {
 
     // AddList Request Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-    public static class AddListReqDto extends DefaultDto.BaseDto {
+    public static class UserListReqDto extends DefaultDto.BaseDto {
         Long roleId;
         Boolean deleted;
     }
 
     // AddList Service Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-    public static class AddListSevDto extends AddListReqDto {
+    public static class UserListSevDto extends UserListReqDto {
         Long reqUserId;
     }
 
     // AddList Response Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-    public static class AddListResDto {
+    public static class UserListResDto {
         Long userId;
         String username;
     }

@@ -1,7 +1,6 @@
 package org.example.morph.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.morph.dto.RoleDto;
 import org.example.morph.dto.RoleUserDto;
 import org.example.morph.security.PrincipalDetails;
 import org.example.morph.service.RoleUserService;
@@ -40,13 +39,13 @@ public class RoleUserRestController {
     }
 
     @PreAuthorize("hasRole('USER')")
-    @GetMapping("/addList")
-    public ResponseEntity<List<RoleUserDto.AddListResDto>> addList(RoleUserDto.AddListReqDto addListReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    @GetMapping("/userList")
+    public ResponseEntity<List<RoleUserDto.UserListResDto>> userList(RoleUserDto.UserListReqDto userListReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        RoleUserDto.AddListSevDto addListSevDto = RoleUserDto.AddListSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
-        addListSevDto = (RoleUserDto.AddListSevDto) addListSevDto.afterBuild(addListReqDto);
+        RoleUserDto.UserListSevDto userListSevDto = RoleUserDto.UserListSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
+        userListSevDto = (RoleUserDto.UserListSevDto) userListSevDto.afterBuild(userListReqDto);
 
-        return ResponseEntity.ok(roleUserService.addList(addListSevDto));
+        return ResponseEntity.ok(roleUserService.userList(userListSevDto));
     }
 
 }

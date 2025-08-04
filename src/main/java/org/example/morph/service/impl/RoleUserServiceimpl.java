@@ -2,9 +2,6 @@ package org.example.morph.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.example.morph.domain.RoleUser;
-import org.example.morph.domain.User;
-import org.example.morph.dto.PermissionDto;
-import org.example.morph.dto.RoleDto;
 import org.example.morph.dto.RoleUserDto;
 import org.example.morph.mapper.RoleUserMapper;
 import org.example.morph.repository.RoleUserRepository;
@@ -52,13 +49,13 @@ public class RoleUserServiceimpl implements RoleUserService {
         return res;
     }
 
-    // AddList
+    // UserList
     @Override
-    public List<RoleUserDto.AddListResDto> addList(RoleUserDto.AddListSevDto addListSevDto){
+    public List<RoleUserDto.UserListResDto> userList(RoleUserDto.UserListSevDto userListSevDto){
 
-        addListSevDto.setDeleted(true);
+        userListSevDto.setDeleted(true);
 
-        List<RoleUserDto.AddListResDto> res = roleUserMapper.addList(addListSevDto);
+        List<RoleUserDto.UserListResDto> res = roleUserMapper.userList(userListSevDto);
 
         return res;
     }

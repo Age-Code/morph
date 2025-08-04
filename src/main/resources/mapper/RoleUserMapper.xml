@@ -15,8 +15,8 @@
         <if test = "deleted != null">AND role_user.deleted = #{deleted}</if>
     </select>
 
-    <!--AddList-->
-    <select id="addList" parameterType="hashMap" resultType="org.example.morph.dto.RoleUserDto$AddListResDto">
+    <!--UserList-->
+    <select id="userList" parameterType="hashMap" resultType="org.example.morph.dto.RoleUserDto$UserListResDto">
         SELECT user.id as userId,
                user.username
         FROM user
