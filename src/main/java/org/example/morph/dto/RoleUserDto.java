@@ -53,4 +53,23 @@ public class RoleUserDto {
         LocalDateTime addedAt;
     }
 
+    // AddList Request Dto
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class AddListReqDto extends DefaultDto.BaseDto {
+        Long roleId;
+        Boolean deleted;
+    }
+
+    // AddList Service Dto
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class AddListSevDto extends AddListReqDto {
+        Long reqUserId;
+    }
+
+    // AddList Response Dto
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class AddListResDto {
+        Long id;
+    }
+
 }

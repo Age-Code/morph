@@ -10,6 +10,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RequestMapping("/api/roleUser")
 @RestController
@@ -33,6 +35,15 @@ public class RoleUserRestController {
         addSevDto = (RoleUserDto.AddSevDto) addSevDto.afterBuild(addReqDto);
 
         return ResponseEntity.ok(roleUserService.add(addSevDto));
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/addList")
+    public ResponseEntity<List<RoleUserDto.AddListResDto>> addList(RoleUserDto.AddListReqDto detailReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        RoleUserDto.AddListSevDto addListSevDto = RoleUserDto.AddListSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
+
+        return ResponseEntity.ok(roleUserService.addList(addListSevDto));
     }
 
 }
