@@ -4,15 +4,15 @@
 
     <!---->
     <select id="list" parameterType="hashMap" resultType="org.example.morph.dto.RoleUserDto$ListResDto">
-        SELECT roleuser.user_id as userId,
-               roleuser.modified_at as addedAt,
-               roleuser.add_user_id as addUserId,
+        SELECT role_user.user_id as userId,
+               role_user.modified_at as addedAt,
+               role_user.add_user_id as addUserId,
                user.username,
                user.deleted as userDeleted
-        FROM roleuser, user
-        WHERE roleuser.role_id = #{roleId}
-        <if test = "deleted != null">AND roleuser.deleted = #{deleted}</if>
-        AND roleuser.user_id = user.id
+        FROM role_user, user
+        WHERE role_user.role_id = #{roleId}
+        <if test = "deleted != null">AND role_user.deleted = #{deleted}</if>
+        AND role_user.user_id = user.id
     </select>
 
 </mapper>

@@ -55,7 +55,7 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 nav nav-tabs" style="position: relative; height: 65px;">
                             <a class="nav-link active" style="position: absolute; bottom: 0; left: 20px;" data-toggle="tab" href="#tab-part">Permission</a>
-                            <a class="nav-link"  style="position: absolute; bottom: 0; left: 135px;" data-toggle="tab" href="#tab-user" onclick="list_role_user();">User</a>
+                            <a class="nav-link"  style="position: absolute; bottom: 0; left: 135px;" data-toggle="tab" href="#tab-user">User</a>
                         </div>
                         <div class="tab-content card-body">
                             <div id="tab-part" class="tab-pane active">
@@ -84,7 +84,7 @@
                                         <th>Deleted</th>
                                         <th>Added By</th>
                                         <th>Added At</th>
-                                        <th><button class="btn btn-success btn-sm"  onclick="add_role_user()">Add</button></th>
+                                        <th><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModal">Add</button></th>
                                     </tr>
                                     </thead>
                                     <tbody id="role_user_list">
@@ -108,6 +108,28 @@
 
     </div>
     <!-- End of Page Wrapper -->
+
+    <!-- Add Modal-->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Role Create</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Body
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-success" id="add_role_user_btn" onclick="add_role_user()">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
