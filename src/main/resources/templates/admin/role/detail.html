@@ -213,7 +213,7 @@
                             + "<td>" + each["userDeleted"] + "</td>"
                             + "<td>" + each["addUserId"] + "</td>"
                             + "<td>" + each["addedAt"] + "</td>"
-                            + "<td><button class=\"btn btn-danger btn-sm\"  onclick=\"delete_role_user()\">Delete</button></td>"
+                            + "<td><button class=\"btn btn-danger btn-sm\" class='delete_user_role' id=\'delete_" + each["userId"] + "\' onclick=\"delete_role_user(this)\">Delete</button></td>"
                             + "</tr>"
                         );
                     }
@@ -304,7 +304,7 @@
                     for (let each of data) {
                         $("#add_role_user").append(
                             "<tr>"
-                            + "<td><input type=\"checkbox\" class=\'checkbox_role_user\' id=\"" + each["userId"] + "\" /></td>"
+                            + "<td><input type=\"checkbox\" class=\'checkbox_role_user\' id=\"list_" + each["userId"] + "\" /></td>"
                             + "<td>" + each["userId"] + "</td>"
                             + "<td>" + each["username"] + "</td>"
                             + "</tr>"
@@ -325,9 +325,10 @@
                 const user_checked = $(this).prop("checked");
 
                 if (user_checked) {
+                    const [func, user_id] = id.split("_");
                     add_role_user.push({
                         roleId: Number(role_id),
-                        userId: Number(id)
+                        userId: Number(user_id)
                     });
                 }
             });
@@ -339,6 +340,32 @@
             $.ajax({
                 url: "/api/roleUser/add",
                 method: "POST",
+                contentType: 'application/json; charset=utf-8',
+                headers:{
+                    "Authorization" : localStorage.getItem("Authorization")
+                },
+                data:JSON.stringify(data),
+                success: (data, status, xhr)=>{
+                    alert(JSON.stringify(status));
+                },
+                error: (data, status, xhr) => {
+                    alert(JSON.stringify(data));
+                }
+            });
+        }
+
+        function delete_role_user(button){
+            const id = button.id;
+            const [func, user_id] = id.split("_");
+
+            const data = {
+                roleId: Number(role_id),
+                userId: Number(user_id)
+            };
+
+            $.ajax({
+                url: "/api/roleUser",
+                method: "DELETE",
                 contentType: 'application/json; charset=utf-8',
                 headers:{
                     "Authorization" : localStorage.getItem("Authorization")

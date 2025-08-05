@@ -1,5 +1,6 @@
 package org.example.morph.service;
 
+import org.example.morph.dto.RoleDto;
 import org.example.morph.dto.RoleUserDto;
 import org.springframework.stereotype.Service;
 
@@ -10,4 +11,5 @@ public interface RoleUserService {
     void add(RoleUserDto.AddUserSevDto addUserSevDto);
     List<RoleUserDto.ListResDto> list(RoleUserDto.ListSevDto listSevDto);
     List<RoleUserDto.UserListResDto> userList(RoleUserDto.UserListSevDto addListSevDto);
+    void delete(RoleUserDto.DeleteSevDto deleteSevDto);
 }

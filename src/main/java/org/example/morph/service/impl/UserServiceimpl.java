@@ -19,7 +19,7 @@ public class UserServiceimpl implements UserService {
     @Override
     public UserDto.SignupResDto signup(UserDto.SignupReqDto signupReqDto){
 
-        User user = userRepository.findByUsername(signupReqDto.getUsername());
+        User user = userRepository.findByUsername(signupReqDto.getUsername()).orElse(null);
         if(user != null) {
             throw new RuntimeException("Already exist");
         }

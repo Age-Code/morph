@@ -1,6 +1,7 @@
 package org.example.morph.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.example.morph.domain.Role;
 import org.example.morph.domain.RoleUser;
 import org.example.morph.dto.RoleUserDto;
 import org.example.morph.mapper.RoleUserMapper;
@@ -25,7 +26,7 @@ public class RoleUserServiceimpl implements RoleUserService {
             for (RoleUserDto.AddSevDto each : addUserSevDto.getAddSevDtoList()) {
                 each.setReqUserId(addUserSevDto.getReqUserId());
 
-                RoleUser roleUser = roleUserRepository.findByRoleIdAndUserId(each.getRoleId(), each.getUserId());
+                RoleUser roleUser = roleUserRepository.findByRoleIdAndUserId(each.getRoleId(), each.getUserId()).orElse(null);
 
                 if(roleUser == null) {
                     roleUser = each.toEntity();
@@ -58,6 +59,19 @@ public class RoleUserServiceimpl implements RoleUserService {
         List<RoleUserDto.UserListResDto> res = roleUserMapper.userList(userListSevDto);
 
         return res;
+    }
+
+    @Override
+    public void delete(RoleUserDto.DeleteSevDto deleteSevDto){
+        RoleUser roleUser = roleUserRepository.findByRoleIdAndUserId(deleteSevDto.getRoleId(), deleteSevDto.getUserId()).orElse(null);
+
+        if(roleUser == null){
+            throw new RuntimeException("no data");
+        }
+
+        roleUser.setDeleted(true);
+
+        roleUserRepository.save(roleUser);
     }
 
 }

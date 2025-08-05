@@ -21,7 +21,7 @@ public class Permissionimpl implements PermissionService {
     // Toggle
     @Override
     public PermissionDto.ToggleResDto toggle(PermissionDto.ToggleSevDto toggleSevDto){
-        Permission permission = permissionRepository.findByRoleIdAndPermissionAndFunc(toggleSevDto.getRoleId(), toggleSevDto.getPermission(), toggleSevDto.getFunc());
+        Permission permission = permissionRepository.findByRoleIdAndPermissionAndFunc(toggleSevDto.getRoleId(), toggleSevDto.getPermission(), toggleSevDto.getFunc()).orElse(null);
 
         if(permission == null){
             if(toggleSevDto.getActive()){

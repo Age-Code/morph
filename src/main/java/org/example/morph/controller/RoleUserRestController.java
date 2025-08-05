@@ -1,6 +1,7 @@
 package org.example.morph.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.morph.dto.RoleDto;
 import org.example.morph.dto.RoleUserDto;
 import org.example.morph.security.PrincipalDetails;
 import org.example.morph.service.RoleUserService;
@@ -46,6 +47,17 @@ public class RoleUserRestController {
         userListSevDto = (RoleUserDto.UserListSevDto) userListSevDto.afterBuild(userListReqDto);
 
         return ResponseEntity.ok(roleUserService.userList(userListSevDto));
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("")
+    public ResponseEntity<Void> delete(@RequestBody RoleUserDto.DeleteReqDto deleteReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        RoleUserDto.DeleteSevDto deleteSevDto = RoleUserDto.DeleteSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
+        deleteSevDto = (RoleUserDto.DeleteSevDto) deleteSevDto.afterBuild(deleteReqDto);
+        roleUserService.delete(deleteSevDto);
+
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }

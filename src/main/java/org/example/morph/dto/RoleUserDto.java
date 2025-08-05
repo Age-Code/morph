@@ -82,4 +82,18 @@ public class RoleUserDto {
         String username;
     }
 
+    // Delete Request Dto
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class DeleteReqDto extends DefaultDto.BaseDto {
+        Long roleId;
+        Long userId;
+    }
+
+    // Delete Service Dto
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class DeleteSevDto extends DeleteReqDto {
+        Long reqUserId;
+    }
+
+
 }
