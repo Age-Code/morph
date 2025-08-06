@@ -10,6 +10,6 @@ public interface AdminUserService {
     AdminUserDto.CreateResDto create(AdminUserDto.CreateSevDto createSevDto);
     AdminUserDto.DetailResDto detail(AdminUserDto.DetailSevDto detailSevDto);
     List<AdminUserDto.ListResDto> list(AdminUserDto.ListSevDto listSevDto);
-//    void update(AdminUserDto.UpdateSevDto updateSevDto);
+    void update(AdminUserDto.UpdateSevDto updateSevDto);
 //    void delete(AdminUserDto.DeleteSevDto deleteSevDto);
 }

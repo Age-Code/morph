@@ -67,7 +67,7 @@ public class AdminUserDto {
     }
 
     // List Response Dto
-    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class ListResDto {
         Long id;
         String username;
@@ -77,24 +77,23 @@ public class AdminUserDto {
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
     }
-//
-//    // Update Request Dto
-//    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-//    public static class UpdateReqDto extends DefaultDto.BaseDto {
-//        Long id;
-//        public String username;
-//        public String password;
-//        public String email;
-//        public String university;
-//        public String nickname;
-//    }
-//
-//    // Update Service Dto
-//    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-//    public static class UpdateSevDto extends UpdateReqDto {
-//        Long reqUserId;
-//    }
-//
+
+    // Update Request Dto
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class UpdateReqDto extends DefaultDto.BaseDto {
+        Long id;
+        String username;
+        String email;
+        String university;
+        String nickname;
+    }
+
+    // Update Service Dto
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class UpdateSevDto extends UpdateReqDto {
+        Long reqUserId;
+    }
+
 //    // Delete Request Dto
 //    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
 //    public static class DeleteReqDto extends DefaultDto.BaseDto {

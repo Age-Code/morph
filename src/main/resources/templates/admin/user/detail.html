@@ -29,59 +29,43 @@
                     <p class="mb-4">User Detail example</p>
 
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Id</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="input_param form-control" id="user_id" name="id"/>
+                        <label class="col-sm-1 col-form-label">Id</label>
+                        <div class="col-sm-1">
+                            <input type="text" class="input_param form-control" id="user_id" name="id" readonly/>
+                        </div>
+                        <label class="col-sm-1 col-form-label">Deleted</label>
+                        <div class="col-sm-1">
+                            <input type="text" class="input_param input_required form-control" id="user_deleted" name="deleted" readonly/>
+                        </div>
+                        <label class="col-sm-1 col-form-label">CreatedAt</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="input_param input_required form-control" id="user_createdAt" name="createdAt" readonly/>
+                        </div>
+                        <label class="col-sm-1 col-form-label">ModifiedAt</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="input_param form-control" id="user_modifiedAt" name="modifiedAt" readonly/>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Username</label>
-                        <div class="col-sm-6">
+                        <label class="col-sm-1 col-form-label">Username</label>
+                        <div class="col-sm-2">
                             <input type="text" class="input_param form-control" id="user_username" name="username"/>
                         </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Deleted</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="input_param input_required form-control" id="user_deleted" name="deleted"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-6">
+                        <label class="col-sm-1 col-form-label">Email</label>
+                        <div class="col-sm-4">
                             <input type="text" class="input_param form-control" id="user_email" name="email"/>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">University</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="input_param input_required form-control" id="user_university" name="university"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Nickname</label>
-                        <div class="col-sm-6">
+                        <label class="col-sm-1 col-form-label">Nickname</label>
+                        <div class="col-sm-2">
                             <input type="text" class="input_param form-control" id="user_nickname" name="nickname"/>
                         </div>
-                    </div>
-
-
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">CreatedAt</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="input_param input_required form-control" id="user_createdAt" name="createdAt"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">ModifiedAt</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="input_param form-control" id="user_modifiedAt" name="modifiedAt"/>
+                        <label class="col-sm-1 col-form-label">University</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="input_param input_required form-control" id="user_university" name="university"/>
                         </div>
                     </div>
 
@@ -97,37 +81,19 @@
                     <!-- Permission Table -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 nav nav-tabs" style="position: relative; height: 65px;">
-                            <a class="nav-link active" style="position: absolute; bottom: 0; left: 20px;" data-toggle="tab" href="#tab-part">Permission</a>
-                            <a class="nav-link"  style="position: absolute; bottom: 0; left: 135px;" data-toggle="tab" href="#tab-user">User</a>
+                            <a class="nav-link active"  style="position: absolute; bottom: 0; left: 20px;" data-toggle="tab" href="#tab-user">User</a>
                         </div>
                         <div class="tab-content card-body">
-                            <div id="tab-part" class="tab-pane active">
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>Permission</th>
-                                        <th>All</th>
-                                        <th>Create</th>
-                                        <th>Read</th>
-                                        <th>Update</th>
-                                        <th>Delete</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="permission_list">
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div id="tab-user" class="tab-pane">
+                            <div id="tab-user" class="tab-pane active">
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>UserName</th>
+                                        <th>Role Name</th>
                                         <th>Deleted</th>
                                         <th>Added By</th>
                                         <th>Added At</th>
-                                        <th><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModal" onclick="list_role_user()">Add</button></th>
+                                        <th><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModal" onclick="list_user_role()">Add</button></th>
                                     </tr>
                                     </thead>
                                     <tbody id="role_user_list">
@@ -169,7 +135,7 @@
                             <tr>
                                 <th><input type="checkbox"/></th>
                                 <th>#</th>
-                                <th>UserName</th>
+                                <th>Role Name</th>
                             </tr>
                         </thead>
                         <tbody id = "add_role_user">
@@ -178,7 +144,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-success" id="add_role_user_btn" onclick="add_role_user()">Add</button>
+                    <button class="btn btn-success" id="add_role_user_btn" onclick="add_user_role()">Add</button>
                 </div>
             </div>
         </div>
@@ -198,8 +164,6 @@
     <!-- Function-->
     <script>
         let user_id = window.location.pathname.split("/").pop();
-
-        let detail_permission = new Set();
 
         function detail_user() {
             $.ajax({
@@ -228,40 +192,21 @@
             });
         }
 
-        function update_role(){
-            const update_permission = [];
-
-            $("input[type='checkbox']").each(function () {
-                const id = $(this).attr("id");
-                const now_checked = $(this).prop("checked");
-                const old_checked = detail_permission.has(id);
-
-                if (now_checked !== old_checked) {
-                    const [permission, func] = id.split("_");
-                    update_permission.push({
-                        active: now_checked,
-                        roleId: Number(role_id),
-                        permission: permission,
-                        func: parseInt(func)
-                    });
-                }
-            });
-
-            const data = {
-                id: Number(role_id),
-                roleName: $('#role_name').val(),
-                content: $('#role_content').val(),
-                permissionUpdate: update_permission
-            };
-
+        function update_user(){
             $.ajax({
-                url: "/api/role",
+                url: "/api/adminUser",
                 method: "PUT",
                 contentType: 'application/json; charset=utf-8',
                 headers:{
                     "Authorization" : localStorage.getItem("Authorization")
                 },
-                data:JSON.stringify(data),
+                data:JSON.stringify({
+                    id: Number(user_id),
+                    username: $("#user_username").val(),
+                    email: $("#user_email").val(),
+                    university: $("#user_university").val(),
+                    nickname: $("#user_nickname").val()
+                }),
                 success: (data, status, xhr)=>{
                     alert(JSON.stringify(status));
                 },

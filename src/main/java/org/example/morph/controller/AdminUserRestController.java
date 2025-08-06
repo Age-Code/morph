@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.morph.dto.AdminUserDto;
 import org.example.morph.security.PrincipalDetails;
 import org.example.morph.service.AdminUserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -55,17 +56,17 @@ public class AdminUserRestController {
         return ResponseEntity.ok(adminUserService.list(listSevDto));
     }
 
-//    @PreAuthorize("hasAdminUser('USER')")
-//    @PutMapping("")
-//    public ResponseEntity<Void> update(@RequestBody AdminUserDto.UpdateReqDto updateReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-//
-//        AdminUserDto.UpdateSevDto updateSevDto = AdminUserDto.UpdateSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
-//        updateSevDto = (AdminUserDto.UpdateSevDto) updateSevDto.afterBuild(updateReqDto);
-//        adminUserService.update(updateSevDto);
-//
-//        return ResponseEntity.status(HttpStatus.OK).build();
-//    }
-//
+    @PreAuthorize("hasRole('USER')")
+    @PutMapping("")
+    public ResponseEntity<Void> update(@RequestBody AdminUserDto.UpdateReqDto updateReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        AdminUserDto.UpdateSevDto updateSevDto = AdminUserDto.UpdateSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
+        updateSevDto = (AdminUserDto.UpdateSevDto) updateSevDto.afterBuild(updateReqDto);
+        adminUserService.update(updateSevDto);
+
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
 //    @PreAuthorize("hasAdminUser('USER')")
 //    @DeleteMapping("")
 //    public ResponseEntity<Void> delete(@RequestBody AdminUserDto.DeleteReqDto deleteReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
