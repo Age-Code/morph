@@ -42,7 +42,6 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Made by</th>
                                         <th>Deleted</th>
                                         <th>Create Date</th>
                                         <th>Modified date</th>
@@ -52,7 +51,6 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Made by</th>
                                         <th>Deleted</th>
                                         <th>Create Date</th>
                                         <th>Modified date</th>
@@ -157,7 +155,7 @@
 
         function list_role() {
             $.ajax({
-                url: "/api/role/list",
+                url: "/api/adminUser/list",
                 method: "GET",
                 contentType : 'application/json; charset=utf-8',
                 headers:{
@@ -169,8 +167,7 @@
                         $("#table_body").append(
                             "<tr>"
                             + "<td>" + each["id"] + "</td>"
-                            + "<td class='cursor_pointer' onclick='location.href = \"/admin/role/detail/" + each["id"] + "\"'>" + each["roleName"] + "</td>"
-                            + "<td>" + each["createUserId"] + "</td>"
+                            + "<td class='cursor_pointer' onclick='location.href = \"/admin/adminUser/detail/" + each["id"] + "\"'>" + each["username"] + "</td>"
                             + "<td>" + each["deleted"] + "</td>"
                             + "<td>" + each["createdAt"] + "</td>"
                             + "<td>" + each["modifiedAt"] + "</td>"
