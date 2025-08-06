@@ -1,9 +1,6 @@
 package org.example.morph.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.example.morph.domain.Permission;
 
@@ -23,7 +20,7 @@ public class PermissionDto {
     }
 
     // Toggle Response Dto
-    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class ToggleResDto {
         Long id;
     }
@@ -38,7 +35,7 @@ public class PermissionDto {
     }
 
     // List Response Dto
-    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class ListResDto {
         String permission;
         Integer func;

@@ -32,7 +32,6 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <button class="btn btn-info m-1" onclick="list_role()">Load</button>
-                            <button class="btn btn-danger m-1" style="float: right" onclick="delete_role()">Delete</button>
                             <a class="btn btn-primary m-1" href="#" style="float: right" data-toggle="modal" data-target="#createModal">Create</a>
                         </div>
                         <div class="card-body">
@@ -91,22 +90,39 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Name</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="input_param input_required form-control" id="role_name" name="title" placeholder="Enter name" />
+
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="text" class="form-control form-control-user" id="user_username"
+                                   placeholder="Username">
                         </div>
+
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control form-control-user" id="user_password"
+                                   placeholder="Password">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" class="form-control form-control-user" id="user_email"
+                               placeholder="Email Address">
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Content</label>
-                        <div class="col-sm-10">
-                            <textarea class="input_param form-control" id="role_content" name="content" placeholder="Enter content" ></textarea>
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="text" class="form-control form-control-user"
+                                   id="user_university" placeholder="University">
+                        </div>
+
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control form-control-user"
+                                   id="user_nickname" placeholder="Nickname">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary" id="create_role_btn" onclick="create_role()">Create</button>
+                    <button class="btn btn-primary" id="create_role_btn" onclick="create_user()">Create</button>
                 </div>
             </div>
         </div>
@@ -132,17 +148,20 @@
     <script src="/sb-admin/js/demo/datatables-demo.js"></script>
 
     <script>
-        function create_role() {
+        function create_user() {
             $.ajax({
-                url: "/api/role",
+                url: "/api/adminUser",
                 method: "POST",
                 contentType: 'application/json; charset=utf-8',
                 headers:{
                     "Authorization" : localStorage.getItem("Authorization")
                 },
                 data:JSON.stringify({
-                    roleName: $('#role_name').val(),
-                    content: $('#role_content').val()
+                    username: $('#user_username').val(),
+                    password: $('#user_password').val(),
+                    email: $('#user_email').val(),
+                    university: $('#user_university').val(),
+                    nickname: $('#user_nickname').val()
                 }),
                 success: (data, status, xhr)=>{
                     alert(JSON.stringify(data));
@@ -174,23 +193,6 @@
                             + "</tr>"
                         );
                     }
-                },
-                error: (data, status, xhr)=>{
-                    alert(JSON.stringify(data));
-                }
-            });
-        }
-
-        function delete_role(){
-            $.ajax({
-                url: "/api/role/list",
-                method: "DELETE",
-                contentType : 'application/json; charset=utf-8',
-                headers:{
-                    "Authorization" : localStorage.getItem("Authorization")
-                },
-                success: (data, status, xhr)=>{
-
                 },
                 error: (data, status, xhr)=>{
                     alert(JSON.stringify(data));

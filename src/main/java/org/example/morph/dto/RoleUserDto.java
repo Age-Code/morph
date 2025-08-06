@@ -1,10 +1,7 @@
 package org.example.morph.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.example.morph.domain.RoleUser;
 
@@ -25,7 +22,7 @@ public class RoleUserDto {
     }
 
     // Add Response Dto
-    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class AddResDto {
         Long id;
     }
@@ -52,7 +49,7 @@ public class RoleUserDto {
     }
 
     // List Response Dto
-    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class ListResDto {
         Long userId;
         String username;
@@ -76,7 +73,7 @@ public class RoleUserDto {
     }
 
     // AddList Response Dto
-    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class UserListResDto {
         Long userId;
         String username;

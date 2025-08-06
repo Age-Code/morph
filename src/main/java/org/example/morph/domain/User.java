@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import lombok.Getter;
 import lombok.Setter;
+import org.example.morph.dto.AdminUserDto;
 import org.example.morph.dto.UserDto;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -29,4 +30,5 @@ public class User extends AuditingFields {
     public static User of(String username, String password, String email, String university, String nickname) { return new User(username, password, email, university, nickname); }
 
     public UserDto.SignupResDto toSignupResDto() { return UserDto.SignupResDto.builder().id(getId()).build(); }
+    public AdminUserDto.CreateResDto toCreateResDto() { return AdminUserDto.CreateResDto.builder().id(getId()).build(); }
 }

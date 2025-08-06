@@ -1,13 +1,9 @@
 package org.example.morph.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.example.morph.domain.User;
-import org.example.morph.dto.PermissionDto;
-import org.example.morph.dto.AdminUserDto;
 import org.example.morph.dto.AdminUserDto;
 import org.example.morph.mapper.AdminUserMapper;
-import org.example.morph.service.PermissionService;
-import org.example.morph.service.AdminUserService;
+import org.example.morph.repository.AdminUserRepository;
 import org.example.morph.service.AdminUserService;
 import org.springframework.stereotype.Service;
 
@@ -17,19 +13,17 @@ import java.util.List;
 @Service
 public class AdminUserServiceimpl implements AdminUserService {
 
-//    final AdminUserRepository roleRepository;
+    final AdminUserRepository roleRepository;
     final AdminUserMapper roleMapper;
-    final PermissionService permissionService;
-//    final AdminUserUserService roleUserService;
 
 
-//    // Create
-//    @Override
-//    public AdminUserDto.CreateResDto create(AdminUserDto.CreateSevDto createSevDto) {
-//        AdminUserDto.CreateResDto res = roleRepository.save(createSevDto.toEntity()).toCreateResDto();
-//
-//        return res;
-//    }
+    // Create
+    @Override
+    public AdminUserDto.CreateResDto create(AdminUserDto.CreateSevDto createSevDto) {
+        AdminUserDto.CreateResDto res = roleRepository.save(createSevDto.toEntity()).toCreateResDto();
+
+        return res;
+    }
 //
 //    // Detail
 //    @Override

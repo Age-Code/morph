@@ -33,7 +33,7 @@ public class RoleDto {
     }
 
     // Create Response Dto
-    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class CreateResDto {
         Long id;
     }
@@ -51,7 +51,7 @@ public class RoleDto {
     }
 
     // Detail Response Dto
-    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class DetailResDto {
         String roleName;
         String content;
@@ -68,7 +68,7 @@ public class RoleDto {
     }
 
     // List Response Dto
-    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class ListResDto {
         Long id;
         String roleName;

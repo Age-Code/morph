@@ -26,16 +26,16 @@ public class AdminUserRestController {
 
         return principalDetails.getUser().getId();
     }
-//
-//    @PreAuthorize("hasAdminUser('USER')")
-//    @PostMapping("")
-//    public ResponseEntity<AdminUserDto.CreateResDto> create(@RequestBody AdminUserDto.CreateReqDto createReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-//
-//        AdminUserDto.CreateSevDto createSevDto = AdminUserDto.CreateSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
-//        createSevDto = (AdminUserDto.CreateSevDto) createSevDto.afterBuild(createReqDto);
-//
-//        return ResponseEntity.ok(adminUserService.create(createSevDto));
-//    }
+
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("")
+    public ResponseEntity<AdminUserDto.CreateResDto> create(@RequestBody AdminUserDto.CreateReqDto createReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        AdminUserDto.CreateSevDto createSevDto = AdminUserDto.CreateSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
+        createSevDto = (AdminUserDto.CreateSevDto) createSevDto.afterBuild(createReqDto);
+
+        return ResponseEntity.ok(adminUserService.create(createSevDto));
+    }
 //
 //    @PreAuthorize("hasAdminUser('USER')")
 //    @GetMapping("/detail")

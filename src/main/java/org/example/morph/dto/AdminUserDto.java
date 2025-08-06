@@ -6,34 +6,33 @@ import lombok.experimental.SuperBuilder;
 import org.example.morph.domain.User;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class AdminUserDto {
-//
-//    // Create Request Dto
-//    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
-//    public static class CreateReqDto extends DefaultDto.BaseDto {
-//        String username;
-//        String password;
-//        String email;
-//        String university;
-//        String nickname;
-//    }
 
-//    // Create Service Dto
-//    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-//    public static class CreateSevDto extends CreateReqDto {
-//        Long reqUserId;
-//
-//        public User toEntity() { return User.of(getUsername(), getPassword(), getEmail(), getUniversity(), getNickname()); }
-//    }
-//
-//    // Create Response Dto
-//    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
-//    public static class CreateResDto {
-//        Long id;
-//    }
-//
+    // Create Request Dto
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class CreateReqDto extends DefaultDto.BaseDto {
+        String username;
+        String password;
+        String email;
+        String university;
+        String nickname;
+    }
+
+    // Create Service Dto
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class CreateSevDto extends CreateReqDto {
+        Long reqUserId;
+
+        public User toEntity() { return User.of(getUsername(), getPassword(), getEmail(), getUniversity(), getNickname()); }
+    }
+
+    // Create Response Dto
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class CreateResDto {
+        Long id;
+    }
+
 //    // Detail Request Dto
 //    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
 //    public static class DetailReqDto extends DefaultDto.BaseDto {

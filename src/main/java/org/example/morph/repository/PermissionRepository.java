@@ -1,7 +1,6 @@
 package org.example.morph.repository;
 
 import org.example.morph.domain.Permission;
-import org.example.morph.domain.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
