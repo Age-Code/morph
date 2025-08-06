@@ -122,7 +122,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary" id="create_role_btn" onclick="create_user()">Create</button>
+                    <button class="btn btn-primary" id="create_user_btn" onclick="create_user()">Create</button>
                 </div>
             </div>
         </div>
@@ -186,7 +186,7 @@
                         $("#table_body").append(
                             "<tr>"
                             + "<td>" + each["id"] + "</td>"
-                            + "<td class='cursor_pointer' onclick='location.href = \"/admin/adminUser/detail/" + each["id"] + "\"'>" + each["username"] + "</td>"
+                            + "<td class='cursor_pointer' onclick='location.href = \"/admin/user/detail/" + each["id"] + "\"'>" + each["username"] + "</td>"
                             + "<td>" + each["deleted"] + "</td>"
                             + "<td>" + each["createdAt"] + "</td>"
                             + "<td>" + each["modifiedAt"] + "</td>"

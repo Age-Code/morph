@@ -24,18 +24,14 @@ public class AdminUserServiceimpl implements AdminUserService {
 
         return res;
     }
-//
-//    // Detail
-//    @Override
-//    public AdminUserDto.DetailResDto detail(AdminUserDto.DetailSevDto detailSevDto){
-//        AdminUserDto.DetailResDto res = roleMapper.detail(detailSevDto);
-//
-//        res.setPermissionList(permissionService.list(PermissionDto.ListSevDto.builder().deleted(false).roleId(detailSevDto.getId()).reqUserId(detailSevDto.getReqUserId()).build()));
-//        res.setAdminUserUserList(roleUserService.list(AdminUserUserDto.ListSevDto.builder().deleted(false).roleId(detailSevDto.getId()).reqUserId(detailSevDto.getReqUserId()).build()));
-//        res.setPermissions(AdminUserDto.permissions);
-//
-//        return res;
-//    }
+
+    // Detail
+    @Override
+    public AdminUserDto.DetailResDto detail(AdminUserDto.DetailSevDto detailSevDto){
+        AdminUserDto.DetailResDto res = roleMapper.detail(detailSevDto);
+
+        return res;
+    }
 
     // List
     @Override

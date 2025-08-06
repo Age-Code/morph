@@ -170,7 +170,6 @@
                     id: Number(role_id)
                 },
                 success: (data, status, xhr)=>{
-                    $("#update_role_btn").attr("href", "/admin/role/update/" + role_id);
                     $("#role_name").val(data["roleName"]);
                     $("#role_content").val(data["content"]);
                     $("#permission_list").html("");

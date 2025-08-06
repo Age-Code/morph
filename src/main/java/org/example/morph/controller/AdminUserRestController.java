@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.example.morph.dto.AdminUserDto;
 import org.example.morph.security.PrincipalDetails;
 import org.example.morph.service.AdminUserService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -36,16 +35,16 @@ public class AdminUserRestController {
 
         return ResponseEntity.ok(adminUserService.create(createSevDto));
     }
-//
-//    @PreAuthorize("hasAdminUser('USER')")
-//    @GetMapping("/detail")
-//    public ResponseEntity<AdminUserDto.DetailResDto> detail(AdminUserDto.DetailReqDto detailReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-//
-//        AdminUserDto.DetailSevDto detailSevDto = AdminUserDto.DetailSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
-//        detailSevDto = (AdminUserDto.DetailSevDto) detailSevDto.afterBuild(detailReqDto);
-//
-//        return ResponseEntity.ok(adminUserService.detail(detailSevDto));
-//    }
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/detail")
+    public ResponseEntity<AdminUserDto.DetailResDto> detail(AdminUserDto.DetailReqDto detailReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        AdminUserDto.DetailSevDto detailSevDto = AdminUserDto.DetailSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
+        detailSevDto = (AdminUserDto.DetailSevDto) detailSevDto.afterBuild(detailReqDto);
+
+        return ResponseEntity.ok(adminUserService.detail(detailSevDto));
+    }
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/list")

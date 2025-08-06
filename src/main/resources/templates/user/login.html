@@ -121,10 +121,13 @@
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data),
                 success: (data, status, xhr)=>{
-                    let resfreshToken = xhr.getResponseHeader("RefreshToken");
-                    localStorage.setItem('RefreshToken', resfreshToken);
-                    alert(JSON.stringify(status));
-                    getAccessToken();
+                    let refreshToken = xhr.getResponseHeader("RefreshToken");
+                    if(refreshToken === null || refreshToken === "" || Number(refreshToken) <= 0){
+                        alert("Account does not exist, or entered the wrong username or password.");
+                    } else {
+                        localStorage.setItem('RefreshToken', refreshToken);
+                        getAccessToken();
+                    }
                 },
                 error: (data, status, xhr)=>{
                     alert(JSON.stringify(data));
@@ -143,6 +146,7 @@
                 success: (data, status, xhr)=>{
                     let accessToken = xhr.getResponseHeader("Authorization");
                     localStorage.setItem("Authorization", accessToken);
+                    location.href = "/home";
                 },
                 error: (data, status, xhr)=>{
                     alert(JSON.stringify(data));

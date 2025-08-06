@@ -2,6 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.morph.mapper.AdminUserMapper">
 
+    <!--Detail-->
+    <select id="detail" parameterType="hashMap" resultType="org.example.morph.dto.AdminUserDto$DetailResDto">
+        SELECT user.id as userId,
+               user.username,
+               user.deleted,
+               user.email,
+               user.university,
+               user.nickname,
+               user.created_at as createdAt,
+               user.modified_at as modifiedAt
+        FROM user
+        WHERE user.id = #{id}
+    </select>
+
+
     <!--List-->
     <select id="list" parameterType="hashMap" resultType="org.example.morph.dto.AdminUserDto$ListResDto">
         SELECT user.id,

@@ -33,32 +33,32 @@ public class AdminUserDto {
         Long id;
     }
 
-//    // Detail Request Dto
-//    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-//    public static class DetailReqDto extends DefaultDto.BaseDto {
-//        Long id;
-//    }
-//
-//    // Detail Service Dto
-//    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-//    public static class DetailSevDto extends DetailReqDto {
-//        Long reqUserId;
-//    }
-//
-//    // Detail Response Dto
-//    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-//    public static class DetailResDto {
-//        Long id;
-//        String username;
-//        Boolean deleted;
-//        String email;
-//        String university;
-//        String nickname;
-//        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-//        LocalDateTime createdAt;
-//        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-//        LocalDateTime modifiedAt;
-//    }
+    // Detail Request Dto
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class DetailReqDto extends DefaultDto.BaseDto {
+        Long id;
+    }
+
+    // Detail Service Dto
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class DetailSevDto extends DetailReqDto {
+        Long reqUserId;
+    }
+
+    // Detail Response Dto
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class DetailResDto {
+        Long userId;
+        String username;
+        Boolean deleted;
+        String email;
+        String university;
+        String nickname;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+        LocalDateTime createdAt;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+        LocalDateTime modifiedAt;
+    }
 
     // List Service Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor

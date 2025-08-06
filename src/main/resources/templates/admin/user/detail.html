@@ -29,24 +29,67 @@
                     <p class="mb-4">User Detail example</p>
 
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Name</label>
+                        <label class="col-sm-2 col-form-label">Id</label>
                         <div class="col-sm-6">
-                            <input type="text" class="input_param input_required form-control" id="role_name" name="title"/>
+                            <input type="text" class="input_param form-control" id="user_id" name="id"/>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Content</label>
+                        <label class="col-sm-2 col-form-label">Username</label>
                         <div class="col-sm-6">
-                            <textarea class="input_param form-control" id="role_content" name="content"></textarea>
+                            <input type="text" class="input_param form-control" id="user_username" name="username"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Deleted</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="input_param input_required form-control" id="user_deleted" name="deleted"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="input_param form-control" id="user_email" name="email"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">University</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="input_param input_required form-control" id="user_university" name="university"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Nickname</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="input_param form-control" id="user_nickname" name="nickname"/>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">CreatedAt</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="input_param input_required form-control" id="user_createdAt" name="createdAt"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">ModifiedAt</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="input_param form-control" id="user_modifiedAt" name="modifiedAt"/>
                         </div>
                     </div>
 
                     <div class="form-group row mt-6">
                         <div class="col-sm-8 offset-sm-8 text-end">
-                            <button class="btn btn-info m-1" id="detail_role_btn" onclick="detail_role()">Load</button>
-                            <button class="btn btn-primary m-1" id="update_role_btn" onclick="update_role()">Update</button>
-                            <button class="btn btn-danger m-1" id="delete_role_btn" onclick="delete_role()">Delete</button>
+                            <button class="btn btn-info m-1" id="detail_user_btn" onclick="detail_user()">Load</button>
+                            <button class="btn btn-primary m-1" id="update_user_btn" onclick="update_user()">Update</button>
+                            <button class="btn btn-danger m-1" id="delete_user_btn" onclick="delete_user()">Delete</button>
                         </div>
                     </div>
 
@@ -115,7 +158,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">UserUser Add</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">User Add</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -154,69 +197,30 @@
 
     <!-- Function-->
     <script>
-        let role_id = window.location.pathname.split("/").pop();
+        let user_id = window.location.pathname.split("/").pop();
 
         let detail_permission = new Set();
 
-        function detail_role() {
+        function detail_user() {
             $.ajax({
-                url: "/api/role/detail",
+                url: "/api/adminUser/detail",
                 method: "GET",
                 contentType: 'application/json; charset=utf-8',
                 headers:{
                     "Authorization" : localStorage.getItem("Authorization")
                 },
                 data:{
-                    id: Number(role_id)
+                    id: Number(user_id)
                 },
                 success: (data, status, xhr)=>{
-                    $("#update_role_btn").attr("href", "/admin/role/update/" + role_id);
-                    $("#role_name").val(data["roleName"]);
-                    $("#role_content").val(data["content"]);
-                    $("#permission_list").html("");
-                    $("#role_user_list").html("");
-
-                    let permissions = data["permissions"];
-                    for (let each of permissions) {
-                        let tList = [];
-                        let eachData = {};
-                        eachData["permission"] = each[0];
-                        eachData["title"] = each[1];
-                        tList.push(eachData);
-                        $("#permission_list").append(
-                            "<tr>"
-                            + "<td>" + each[1] + "</td>"
-                            + "<td><input type=\"checkbox\" class=\'checkbox_" + each[0] + "\' id=\"" + each[0] + "_0\" /></td>"
-                            + "<td><input type=\"checkbox\" class=\'checkbox_" + each[0] + "\' id=\"" + each[0] + "_120\" /></td>"
-                            + "<td><input type=\"checkbox\" class=\'checkbox_" + each[0] + "\' id=\"" + each[0] + "_150\" /></td>"
-                            + "<td><input type=\"checkbox\" class=\'checkbox_" + each[0] + "\' id=\"" + each[0] + "_180\" /></td>"
-                            + "<td><input type=\"checkbox\" class=\'checkbox_" + each[0] + "\' id=\"" + each[0] + "_200\" /></td>"
-                            + "</tr>"
-                        );
-                    }
-
-                    let permissionList = data["permissionList"];
-                    for (let each of permissionList) {
-                        $("#" + each["permission"] + "_" + each["func"]).prop("checked", true);
-
-                        const key = `${each["permission"]}_${each["func"]}`;
-                        detail_permission.add(key);
-                        $("#" + key).prop("checked", true);
-                    }
-
-                    let role_user = data["roleUserList"];
-                    for (let each of role_user) {
-                        $("#role_user_list").append(
-                            "<tr>"
-                            + "<td>" + each["userId"] + "</td>"
-                            + "<td>" + each["username"] + "</td>"
-                            + "<td>" + each["userDeleted"] + "</td>"
-                            + "<td>" + each["addUserId"] + "</td>"
-                            + "<td>" + each["addedAt"] + "</td>"
-                            + "<td><button class=\"btn btn-danger btn-sm\" class='delete_user_role' id=\'delete_" + each["userId"] + "\' onclick=\"delete_role_user(this)\">Delete</button></td>"
-                            + "</tr>"
-                        );
-                    }
+                    $("#user_id").val(data["userId"]);
+                    $("#user_username").val(data["username"]);
+                    $("#user_deleted").val(data["deleted"]);
+                    $("#user_email").val(data["email"]);
+                    $("#user_university").val(data["university"]);
+                    $("#user_nickname").val(data["nickname"]);
+                    $("#user_createdAt").val(data["createdAt"]);
+                    $("#user_modifiedAt").val(data["modifiedAt"]);
                 },
                 error: (data, status, xhr) => {
                     alert(JSON.stringify(data));
