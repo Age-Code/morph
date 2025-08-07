@@ -50,6 +50,16 @@ public class RoleUserRestController {
     }
 
     @PreAuthorize("hasRole('USER')")
+    @GetMapping("/addRoleList")
+    public ResponseEntity<List<RoleUserDto.AddListResDto>> addRoleList(RoleUserDto.AddListReqDto addListReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        RoleUserDto.AddListSevDto addListSevDto = RoleUserDto.AddListSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
+        addListSevDto = (RoleUserDto.AddListSevDto) addListSevDto.afterBuild(addListReqDto);
+
+        return ResponseEntity.ok(roleUserService.addRoleList(addListSevDto));
+    }
+
+    @PreAuthorize("hasRole('USER')")
     @DeleteMapping("")
     public ResponseEntity<Void> delete(@RequestBody RoleUserDto.DeleteReqDto deleteReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 

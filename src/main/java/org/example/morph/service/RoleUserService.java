@@ -12,5 +12,6 @@ public interface RoleUserService {
     List<RoleUserDto.ListResDto> userList(RoleUserDto.ListSevDto listSevDto);
     List<RoleUserDto.AddListResDto> addUserList(RoleUserDto.AddListSevDto addListSevDto);
     List<RoleUserDto.ListResDto> roleList(RoleUserDto.ListSevDto listSevDto);
+    List<RoleUserDto.AddListResDto> addRoleList(RoleUserDto.AddListSevDto addListSevDto);
     void delete(RoleUserDto.DeleteSevDto deleteSevDto);
 }

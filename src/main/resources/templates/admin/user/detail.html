@@ -136,6 +136,7 @@
                                 <th><input type="checkbox"/></th>
                                 <th>#</th>
                                 <th>Role Name</th>
+                                <th>Deleted</th>
                             </tr>
                         </thead>
                         <tbody id = "add_user_role">
@@ -177,8 +178,6 @@
                     id: Number(user_id)
                 },
                 success: (data, status, xhr)=>{
-                    alert(JSON.stringify(data));
-
                     $("#user_id").val(data["userId"]);
                     $("#user_username").val(data["username"]);
                     $("#user_deleted").val(data["deleted"]);
@@ -189,6 +188,7 @@
                     $("#user_modifiedAt").val(data["modifiedAt"]);
 
                     let user_role = data["userRoleList"];
+                    $("#user_role_list").html("");
                     for (let each of user_role) {
                         $("#user_role_list").append(
                             "<tr>"
@@ -272,6 +272,7 @@
                             + "<td><input type=\"checkbox\" class=\'checkbox_user_role\' id=\"list_" + each["resId"] + "\" /></td>"
                             + "<td>" + each["resId"] + "</td>"
                             + "<td>" + each["resName"] + "</td>"
+                            + "<td>" + each["resDeleted"] + "</td>"
                             + "</tr>"
                         );
                     }
@@ -285,15 +286,15 @@
         function add_user_role(){
             const add_user_role = [];
 
-            $("input[type='checkbox'].checkbox_role_user").each(function () {
+            $("input[type='checkbox'].checkbox_user_role").each(function () {
                 const id = $(this).attr("id");
                 const user_checked = $(this).prop("checked");
 
                 if (user_checked) {
                     const [func, role_id] = id.split("_");
                     add_user_role.push({
-                        roleId: Number(role_id),
-                        userId: Number(user_id)
+                        userId: Number(user_id),
+                        roleId: Number(role_id)
                     });
                 }
             });
@@ -324,8 +325,8 @@
             const [func, role_id] = id.split("_");
 
             const data = {
-                roleId: Number(role_id),
-                userId: Number(user_id)
+                userId: Number(user_id),
+                roleId: Number(role_id)
             };
 
             $.ajax({

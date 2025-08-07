@@ -18,10 +18,11 @@
     <!--AddUserList-->
     <select id="addUserList" parameterType="hashMap" resultType="org.example.morph.dto.RoleUserDto$AddListResDto">
         SELECT user.id as resId,
-               user.username as resName
+               user.username as resName,
+               user.delted as resDeleted
         FROM user
         LEFT JOIN role_user ON user.id = role_user.user_id
-                      AND role_user.role_id = #{reqId}
+                           AND role_user.role_id = #{reqId}
         WHERE (role_user.user_id IS NULL
         <if test = "deleted != null">OR role_user.deleted = #{deleted}</if>)
     </select>
@@ -37,6 +38,18 @@
         JOIN role ON role_user.role_id = role.id
         WHERE role_user.user_id = #{reqId}
         <if test = "deleted != null">AND role_user.deleted = #{deleted}</if>
+    </select>
+
+    <!--AddRoleList-->
+    <select id="addRoleList" parameterType="hashMap" resultType="org.example.morph.dto.RoleUserDto$AddListResDto">
+        SELECT role.id as resId,
+               role.role_name as resName,
+               role.deleted as resDeleted
+        FROM role
+        LEFT JOIN role_user ON role.id = role_user.role_id
+                           AND role_user.user_id = #{reqId}
+        WHERE (role_user.role_id IS NULL
+        <if test = "deleted != null">OR role_user.deleted = #{deleted}</if>)
     </select>
 
 </mapper>

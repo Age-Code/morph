@@ -146,6 +146,7 @@
                                 <th><input type="checkbox"/></th>
                                 <th>#</th>
                                 <th>Username</th>
+                                <th>Deleted</th>
                             </tr>
                         </thead>
                         <tbody id = "add_role_user">
@@ -329,6 +330,7 @@
                             + "<td><input type=\"checkbox\" class=\'checkbox_role_user\' id=\"list_" + each["resId"] + "\" /></td>"
                             + "<td>" + each["resId"] + "</td>"
                             + "<td>" + each["resName"] + "</td>"
+                            + "<td>" + each["resDeleted"] + "</td>"
                             + "</tr>"
                         );
                     }

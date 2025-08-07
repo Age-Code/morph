@@ -77,6 +77,7 @@ public class RoleUserDto {
     public static class AddListResDto {
         Long resId;
         String resName;
+        Boolean resDeleted;
     }
 
     // Delete Request Dto
