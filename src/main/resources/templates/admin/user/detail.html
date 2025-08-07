@@ -312,7 +312,8 @@
                 },
                 data:JSON.stringify(data),
                 success: (data, status, xhr)=>{
-                    alert(JSON.stringify(status));
+                    list_user_role();
+                    detail_user();
                 },
                 error: (data, status, xhr) => {
                     alert(JSON.stringify(data));
@@ -338,7 +339,7 @@
                 },
                 data:JSON.stringify(data),
                 success: (data, status, xhr)=>{
-                    alert(JSON.stringify(status));
+                    detail_user();
                 },
                 error: (data, status, xhr) => {
                     alert(JSON.stringify(data));

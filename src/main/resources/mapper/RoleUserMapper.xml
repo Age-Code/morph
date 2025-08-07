@@ -19,7 +19,7 @@
     <select id="addUserList" parameterType="hashMap" resultType="org.example.morph.dto.RoleUserDto$AddListResDto">
         SELECT user.id as resId,
                user.username as resName,
-               user.delted as resDeleted
+               user.deleted as resDeleted
         FROM user
         LEFT JOIN role_user ON user.id = role_user.user_id
                            AND role_user.role_id = #{reqId}
