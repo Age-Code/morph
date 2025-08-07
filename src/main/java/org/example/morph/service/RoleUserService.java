@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public interface RoleUserService {
     void add(RoleUserDto.AddUserSevDto addUserSevDto);
-    List<RoleUserDto.ListResDto> list(RoleUserDto.ListSevDto listSevDto);
-    List<RoleUserDto.UserListResDto> userList(RoleUserDto.UserListSevDto addListSevDto);
+    List<RoleUserDto.ListResDto> userList(RoleUserDto.ListSevDto listSevDto);
+    List<RoleUserDto.AddListResDto> addUserList(RoleUserDto.AddListSevDto addListSevDto);
     void delete(RoleUserDto.DeleteSevDto deleteSevDto);
 }

@@ -6,6 +6,7 @@ import lombok.experimental.SuperBuilder;
 import org.example.morph.domain.User;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class AdminUserDto {
 
@@ -58,6 +59,8 @@ public class AdminUserDto {
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
+
+        List<RoleUserDto.ListResDto> permissionList;
     }
 
     // List Service Dto

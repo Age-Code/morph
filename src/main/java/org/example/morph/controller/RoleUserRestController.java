@@ -40,13 +40,13 @@ public class RoleUserRestController {
     }
 
     @PreAuthorize("hasRole('USER')")
-    @GetMapping("/userList")
-    public ResponseEntity<List<RoleUserDto.UserListResDto>> userList(RoleUserDto.UserListReqDto userListReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    @GetMapping("/addUserList")
+    public ResponseEntity<List<RoleUserDto.AddListResDto>> addUserList(RoleUserDto.AddListReqDto addListReqDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        RoleUserDto.UserListSevDto userListSevDto = RoleUserDto.UserListSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
-        userListSevDto = (RoleUserDto.UserListSevDto) userListSevDto.afterBuild(userListReqDto);
+        RoleUserDto.AddListSevDto addListSevDto = RoleUserDto.AddListSevDto.builder().reqUserId(getReqUserId(principalDetails)).build();
+        addListSevDto = (RoleUserDto.AddListSevDto) addListSevDto.afterBuild(addListReqDto);
 
-        return ResponseEntity.ok(roleUserService.userList(userListSevDto));
+        return ResponseEntity.ok(roleUserService.addUserList(addListSevDto));
     }
 
     @PreAuthorize("hasRole('USER')")

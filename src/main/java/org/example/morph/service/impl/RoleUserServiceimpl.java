@@ -41,22 +41,22 @@ public class RoleUserServiceimpl implements RoleUserService {
 
     // List
     @Override
-    public List<RoleUserDto.ListResDto> list(RoleUserDto.ListSevDto listSevDto){
+    public List<RoleUserDto.ListResDto> userList(RoleUserDto.ListSevDto listSevDto){
 
         listSevDto.setDeleted(false);
 
-        List<RoleUserDto.ListResDto> res = roleUserMapper.list(listSevDto);
+        List<RoleUserDto.ListResDto> res = roleUserMapper.userList(listSevDto);
 
         return res;
     }
 
     // UserList
     @Override
-    public List<RoleUserDto.UserListResDto> userList(RoleUserDto.UserListSevDto userListSevDto){
+    public List<RoleUserDto.AddListResDto> addUserList(RoleUserDto.AddListSevDto addListSevDto){
 
-        userListSevDto.setDeleted(true);
+        addListSevDto.setDeleted(true);
 
-        List<RoleUserDto.UserListResDto> res = roleUserMapper.userList(userListSevDto);
+        List<RoleUserDto.AddListResDto> res = roleUserMapper.addList(addListSevDto);
 
         return res;
     }

@@ -6,6 +6,6 @@ import org.example.morph.dto.RoleUserDto;
 import java.util.List;
 
 public interface RoleUserMapper {
-    List<RoleUserDto.ListResDto> list(RoleUserDto.ListSevDto listSevDto);
-    List<RoleUserDto.UserListResDto> userList(RoleUserDto.UserListSevDto userListSevDto);
+    List<RoleUserDto.ListResDto> userList(RoleUserDto.ListSevDto listSevDto);
+    List<RoleUserDto.AddListResDto> addList(RoleUserDto.AddListSevDto userListSevDto);
 }

@@ -216,20 +216,20 @@
             });
         }
 
-        function delete_role(){
+        function delete_user(){
             $.ajax({
-                url: "/api/role",
+                url: "/api/adminUser",
                 method: "DELETE",
                 contentType: 'application/json; charset=utf-8',
                 headers: {
                     "Authorization": localStorage.getItem("Authorization")
                 },
                 data: JSON.stringify({
-                    id: Number(role_id)
+                    id: Number(user_id)
                 }),
                 success: (data, status, xhr)=>{
                     alert(status);
-                    location.href = "/admin/role/list";
+                    location.href = "/admin/user/list";
                 },
                 error: (data, status, xhr)=>{
                     alert(JSON.stringify(data));

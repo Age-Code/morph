@@ -4,20 +4,24 @@
 
     <!--Detail-->
     <select id="detail" parameterType="hashMap" resultType="org.example.morph.dto.RoleDto$DetailResDto">
-        SELECT role.role_name as roleName
-             , role.content
+        SELECT role.id as roleId,
+               role.deleted,
+               role.created_at as createdAt,
+               role.modified_at as modifiedAt,
+               role.role_name as roleName,
+               role.content
         FROM role
         WHERE role.id = #{id}
     </select>
 
     <!--List-->
     <select id="list" parameterType="hashMap" resultType="org.example.morph.dto.RoleDto$ListResDto">
-        SELECT role.id
-             , role.role_name as roleName
-             , role.create_user_id as createUserId
-             , role.created_at as createdAt
-             , role.modified_at as modifiedAt
-             , role.deleted
+        SELECT role.id,
+               role.role_name as roleName,
+               role.deleted,
+               role.create_user_id as createUserId,
+               role.created_at as createdAt,
+               role.modified_at as modifiedAt
         FROM role
         WHERE role.id is not NULL
     </select>

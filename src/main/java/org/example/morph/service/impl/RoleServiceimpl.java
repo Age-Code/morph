@@ -38,7 +38,7 @@ public class RoleServiceimpl implements RoleService {
         RoleDto.DetailResDto res = roleMapper.detail(detailSevDto);
 
         res.setPermissionList(permissionService.list(PermissionDto.ListSevDto.builder().deleted(false).roleId(detailSevDto.getId()).reqUserId(detailSevDto.getReqUserId()).build()));
-        res.setRoleUserList(roleUserService.list(RoleUserDto.ListSevDto.builder().deleted(false).roleId(detailSevDto.getId()).reqUserId(detailSevDto.getReqUserId()).build()));
+        res.setRoleUserList(roleUserService.userList(RoleUserDto.ListSevDto.builder().deleted(false).reqId(detailSevDto.getId()).reqUserId(detailSevDto.getReqUserId()).build()));
         res.setPermissions(RoleDto.permissions);
 
         return res;

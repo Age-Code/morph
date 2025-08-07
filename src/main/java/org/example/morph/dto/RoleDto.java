@@ -53,6 +53,12 @@ public class RoleDto {
     // Detail Response Dto
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class DetailResDto {
+        Long roleId;
+        Boolean deleted;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+        LocalDateTime createdAt;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+        LocalDateTime modifiedAt;
         String roleName;
         String content;
 

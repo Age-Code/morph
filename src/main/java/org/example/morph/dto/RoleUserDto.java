@@ -42,7 +42,7 @@ public class RoleUserDto {
     // List Service Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
     public static class ListSevDto {
-        Long roleId;
+        Long reqId;
         Boolean deleted;
 
         Long reqUserId;
@@ -51,9 +51,9 @@ public class RoleUserDto {
     // List Response Dto
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class ListResDto {
-        Long userId;
-        String username;
-        Boolean userDeleted;
+        Long resId;
+        String resName;
+        Boolean resDeleted;
         Long addUserId;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime addedAt;
@@ -61,22 +61,22 @@ public class RoleUserDto {
 
     // AddList Request Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-    public static class UserListReqDto extends DefaultDto.BaseDto {
-        Long roleId;
+    public static class AddListReqDto extends DefaultDto.BaseDto {
+        Long reqId;
         Boolean deleted;
     }
 
     // AddList Service Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-    public static class UserListSevDto extends UserListReqDto {
+    public static class AddListSevDto extends AddListReqDto {
         Long reqUserId;
     }
 
     // AddList Response Dto
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
-    public static class UserListResDto {
-        Long userId;
-        String username;
+    public static class AddListResDto {
+        Long resId;
+        String resName;
     }
 
     // Delete Request Dto
