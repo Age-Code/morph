@@ -96,7 +96,7 @@
                                         <th><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModal" onclick="list_user_role()">Add</button></th>
                                     </tr>
                                     </thead>
-                                    <tbody id="role_user_list">
+                                    <tbody id="user_role_list">
                                     </tbody>
                                 </table>
                             </div>
@@ -138,13 +138,13 @@
                                 <th>Role Name</th>
                             </tr>
                         </thead>
-                        <tbody id = "add_role_user">
+                        <tbody id = "add_user_role">
                         </tbody>
                     </table>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-success" id="add_role_user_btn" onclick="add_user_role()">Add</button>
+                    <button class="btn btn-success" id="add_user_role_btn" onclick="add_user_role()">Add</button>
                 </div>
             </div>
         </div>
@@ -177,6 +177,8 @@
                     id: Number(user_id)
                 },
                 success: (data, status, xhr)=>{
+                    alert(JSON.stringify(data));
+
                     $("#user_id").val(data["userId"]);
                     $("#user_username").val(data["username"]);
                     $("#user_deleted").val(data["deleted"]);
@@ -185,6 +187,20 @@
                     $("#user_nickname").val(data["nickname"]);
                     $("#user_createdAt").val(data["createdAt"]);
                     $("#user_modifiedAt").val(data["modifiedAt"]);
+
+                    let user_role = data["userRoleList"];
+                    for (let each of user_role) {
+                        $("#user_role_list").append(
+                            "<tr>"
+                            + "<td>" + each["resId"] + "</td>"
+                            + "<td>" + each["resName"] + "</td>"
+                            + "<td>" + each["resDeleted"] + "</td>"
+                            + "<td>" + each["addUserId"] + "</td>"
+                            + "<td>" + each["addedAt"] + "</td>"
+                            + "<td><button class=\"btn btn-danger btn-sm\" class='delete_user_role' id=\'delete_" + each["resId"] + "\' onclick=\"delete_user_role(this)\">Delete</button></td>"
+                            + "</tr>"
+                        );
+                    }
                 },
                 error: (data, status, xhr) => {
                     alert(JSON.stringify(data));
@@ -237,25 +253,25 @@
             });
         }
 
-        function list_role_user(){
+        function list_user_role(){
             $.ajax({
-                url: "/api/roleUser/userList",
+                url: "/api/roleUser/addRoleList",
                 method: "GET",
                 contentType: 'application/json; charset=utf-8',
                 headers:{
                     "Authorization" : localStorage.getItem("Authorization")
                 },
                 data:{
-                    roleId: Number(role_id)
+                    reqId: Number(user_id)
                 },
                 success: (data, status, xhr)=>{
-                    $("#add_role_user").html("");
+                    $("#add_user_role").html("");
                     for (let each of data) {
-                        $("#add_role_user").append(
+                        $("#add_user_role").append(
                             "<tr>"
-                            + "<td><input type=\"checkbox\" class=\'checkbox_role_user\' id=\"list_" + each["userId"] + "\" /></td>"
-                            + "<td>" + each["userId"] + "</td>"
-                            + "<td>" + each["username"] + "</td>"
+                            + "<td><input type=\"checkbox\" class=\'checkbox_user_role\' id=\"list_" + each["resId"] + "\" /></td>"
+                            + "<td>" + each["resId"] + "</td>"
+                            + "<td>" + each["resName"] + "</td>"
                             + "</tr>"
                         );
                     }
@@ -266,16 +282,16 @@
             });
         }
 
-        function add_role_user(){
-            const add_role_user = [];
+        function add_user_role(){
+            const add_user_role = [];
 
             $("input[type='checkbox'].checkbox_role_user").each(function () {
                 const id = $(this).attr("id");
                 const user_checked = $(this).prop("checked");
 
                 if (user_checked) {
-                    const [func, user_id] = id.split("_");
-                    add_role_user.push({
+                    const [func, role_id] = id.split("_");
+                    add_user_role.push({
                         roleId: Number(role_id),
                         userId: Number(user_id)
                     });
@@ -283,7 +299,7 @@
             });
 
             const data = {
-                addSevDtoList: add_role_user
+                addSevDtoList: add_user_role
             };
 
             $.ajax({
@@ -303,9 +319,9 @@
             });
         }
 
-        function delete_role_user(button){
+        function delete_user_role(button){
             const id = button.id;
-            const [func, user_id] = id.split("_");
+            const [func, role_id] = id.split("_");
 
             const data = {
                 roleId: Number(role_id),

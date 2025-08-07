@@ -60,7 +60,7 @@ public class AdminUserDto {
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
 
-        List<RoleUserDto.ListResDto> permissionList;
+        List<RoleUserDto.ListResDto> userRoleList;
     }
 
     // List Service Dto

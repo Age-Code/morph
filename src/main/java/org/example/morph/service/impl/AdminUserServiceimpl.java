@@ -3,9 +3,11 @@ package org.example.morph.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.example.morph.domain.User;
 import org.example.morph.dto.AdminUserDto;
+import org.example.morph.dto.RoleUserDto;
 import org.example.morph.mapper.AdminUserMapper;
 import org.example.morph.repository.AdminUserRepository;
 import org.example.morph.service.AdminUserService;
+import org.example.morph.service.RoleUserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,7 @@ public class AdminUserServiceimpl implements AdminUserService {
 
     final AdminUserRepository adminUserRepository;
     final AdminUserMapper adminUserMapper;
+    final RoleUserService roleUserService;
 
 
     // Create
@@ -30,6 +33,8 @@ public class AdminUserServiceimpl implements AdminUserService {
     @Override
     public AdminUserDto.DetailResDto detail(AdminUserDto.DetailSevDto detailSevDto){
         AdminUserDto.DetailResDto res = adminUserMapper.detail(detailSevDto);
+
+        res.setUserRoleList(roleUserService.roleList(RoleUserDto.ListSevDto.builder().deleted(false).reqId(detailSevDto.getId()).reqUserId(detailSevDto.getReqUserId()).build()));
 
         return res;
     }

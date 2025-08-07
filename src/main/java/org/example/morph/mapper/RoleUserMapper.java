@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface RoleUserMapper {
     List<RoleUserDto.ListResDto> userList(RoleUserDto.ListSevDto listSevDto);
-    List<RoleUserDto.AddListResDto> addList(RoleUserDto.AddListSevDto userListSevDto);
+    List<RoleUserDto.AddListResDto> addUserList(RoleUserDto.AddListSevDto userListSevDto);
+    List<RoleUserDto.ListResDto> roleList(RoleUserDto.ListSevDto listSevDto);
 }
