@@ -50,18 +50,11 @@ public class NoticeServiceimpl implements NoticeService {
             throw new RuntimeException("no data");
         }
 
-        if(updateSevDto.getNoticeName() != null){
-            notice.setNoticeName(updateSevDto.getNoticeName());
+        if(updateSevDto.getTitle() != null){
+            notice.setTitle(updateSevDto.getTitle());
         }
         if(updateSevDto.getContent() != null){
             notice.setContent(updateSevDto.getContent());
-        }
-
-        if (updateSevDto.getPermissionUpdate() != null) {
-            for (PermissionDto.ToggleSevDto each : updateSevDto.getPermissionUpdate()) {
-                each.setNoticeId(notice.getId());
-                permissionService.toggle(each);
-            }
         }
 
         noticeRepository.save(notice);
