@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin/faq")
 @Controller
 public class FaqController {
-
     @RequestMapping("/{page}")
     public String page(@PathVariable String page) { return "admin/faq/" + page; }
     @RequestMapping("/{page}/{id}")

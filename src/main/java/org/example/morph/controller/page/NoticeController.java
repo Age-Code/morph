@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin/notice")
 @Controller
 public class NoticeController {
-
     @RequestMapping("/{page}")
     public String page(@PathVariable String page) { return "admin/notice/" + page; }
     @RequestMapping("/{page}/{id}")
