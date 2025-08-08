@@ -26,13 +26,12 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">FAQ List</h1>
-                    <p class="mb-4">FAQ List example.</p>
+                    <p class="mb-4">FAQ List example</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <button class="btn btn-info m-1" onclick="list_role()">Load</button>
-                            <button class="btn btn-danger m-1" style="float: right" onclick="delete_role()">Delete</button>
+                            <button class="btn btn-info m-1" onclick="list_faq()">Load</button>
                             <a class="btn btn-primary m-1" href="#" style="float: right" data-toggle="modal" data-target="#createModal">Create</a>
                         </div>
                         <div class="card-body">
@@ -41,7 +40,7 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Name</th>
+                                        <th>Title</th>
                                         <th>Made by</th>
                                         <th>Deleted</th>
                                         <th>Create Date</th>
@@ -51,7 +50,7 @@
                                     <tfoot>
                                     <tr>
                                         <th>#</th>
-                                        <th>Name</th>
+                                        <th>Title</th>
                                         <th>Made by</th>
                                         <th>Deleted</th>
                                         <th>Create Date</th>
@@ -93,22 +92,22 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Name</label>
+                        <label class="col-sm-2 col-form-label">Title</label>
                         <div class="col-sm-10">
-                            <input type="text" class="input_param input_required form-control" id="role_name" name="title" placeholder="Enter name" />
+                            <input type="text" class="input_param input_required form-control" id="faq_title" name="title" placeholder="Enter title" />
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Content</label>
                         <div class="col-sm-10">
-                            <textarea class="input_param form-control" id="role_content" name="content" placeholder="Enter content" ></textarea>
+                            <textarea class="input_param form-control" id="faq_content" name="content" placeholder="Enter content" ></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary" id="create_role_btn" onclick="create_role()">Create</button>
+                    <button class="btn btn-primary" id="create_faq_btn" onclick="create_faq()">Create</button>
                 </div>
             </div>
         </div>
@@ -134,20 +133,21 @@
     <script src="/sb-admin/js/demo/datatables-demo.js"></script>
 
     <script>
-        function create_role() {
+        function create_faq() {
             $.ajax({
-                url: "/api/role",
+                url: "/api/faq",
                 method: "POST",
                 contentType: 'application/json; charset=utf-8',
                 headers:{
                     "Authorization" : localStorage.getItem("Authorization")
                 },
                 data:JSON.stringify({
-                    roleName: $('#role_name').val(),
-                    content: $('#role_content').val()
+                    title: $('#faq_title').val(),
+                    content: $('#faq_content').val()
                 }),
                 success: (data, status, xhr)=>{
                     alert(JSON.stringify(data));
+                    list_faq();
                 },
                 error: (data, status, xhr)=>{
                     alert(JSON.stringify(data));
@@ -155,9 +155,9 @@
             });
         }
 
-        function list_role() {
+        function list_faq() {
             $.ajax({
-                url: "/api/role/list",
+                url: "/api/faq/list",
                 method: "GET",
                 contentType : 'application/json; charset=utf-8',
                 headers:{
@@ -169,7 +169,7 @@
                         $("#table_body").append(
                             "<tr>"
                             + "<td>" + each["id"] + "</td>"
-                            + "<td class='cursor_pointer' onclick='location.href = \"/admin/role/detail/" + each["id"] + "\"'>" + each["roleName"] + "</td>"
+                            + "<td class='cursor_pointer' onclick='location.href = \"/admin/faq/detail/" + each["id"] + "\"'>" + each["title"] + "</td>"
                             + "<td>" + each["createUserId"] + "</td>"
                             + "<td>" + each["deleted"] + "</td>"
                             + "<td>" + each["createdAt"] + "</td>"
@@ -184,22 +184,6 @@
             });
         }
 
-        function delete_role(){
-            $.ajax({
-                url: "/api/role/list",
-                method: "DELETE",
-                contentType : 'application/json; charset=utf-8',
-                headers:{
-                    "Authorization" : localStorage.getItem("Authorization")
-                },
-                success: (data, status, xhr)=>{
-
-                },
-                error: (data, status, xhr)=>{
-                    alert(JSON.stringify(data));
-                }
-            });
-        }
     </script>
 
 </body>
