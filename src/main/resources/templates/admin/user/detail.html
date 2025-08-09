@@ -4,6 +4,26 @@
 <!-- Head -->
 <th:block th:replace="~{/includes/admin/head}" />
 
+<script id="user-role-list-template" type="text/x-handlebars-template">
+    <tr>
+        <td>{{resId}}</td>
+        <td>{{resName}}</td>
+        <td>{{resDeleted}}</td>
+        <td>{{addUserId}}</td>
+        <td>{{addedAt}}</td>
+        <td><button class="btn btn-danger btn-sm" id='delete_{{resId}}' onclick="delete_user_role(this)">Delete</button></td>
+    </tr>
+</script>
+
+<script id="add-user-role-list-template" type="text/x-handlebars-template">
+    <tr>
+        <td><input type="checkbox" class='checkbox_user_role' id="list_{{resId}}" /></td>
+        <td>{{resId}}</td>
+        <td>{{resName}}</td>
+        <td>{{resDeleted}}</td>
+    </tr>
+</script>
+
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -169,6 +189,12 @@
             detail_user();
         });
 
+        var user_role_list_source = $("#user-role-list-template").html();
+        var user_role_list_template = Handlebars.compile(user_role_list_source);
+
+        var add_user_role_list_source = $("#add-user-role-list-template").html();
+        var add_user_role_list_template = Handlebars.compile(add_user_role_list_source);
+
         function detail_user() {
             $.ajax({
                 url: "/api/adminUser/detail",
@@ -193,16 +219,7 @@
                     let user_role = data["userRoleList"];
                     $("#user_role_list").html("");
                     for (let each of user_role) {
-                        $("#user_role_list").append(
-                            "<tr>"
-                            + "<td>" + each["resId"] + "</td>"
-                            + "<td>" + each["resName"] + "</td>"
-                            + "<td>" + each["resDeleted"] + "</td>"
-                            + "<td>" + each["addUserId"] + "</td>"
-                            + "<td>" + each["addedAt"] + "</td>"
-                            + "<td><button class=\"btn btn-danger btn-sm\" class='delete_user_role' id=\'delete_" + each["resId"] + "\' onclick=\"delete_user_role(this)\">Delete</button></td>"
-                            + "</tr>"
-                        );
+                        $("#user_role_list").append(user_role_list_template(each));
                     }
                 },
                 error: (data, status, xhr) => {
@@ -270,14 +287,7 @@
                 success: (data, status, xhr)=>{
                     $("#add_user_role").html("");
                     for (let each of data) {
-                        $("#add_user_role").append(
-                            "<tr>"
-                            + "<td><input type=\"checkbox\" class=\'checkbox_user_role\' id=\"list_" + each["resId"] + "\" /></td>"
-                            + "<td>" + each["resId"] + "</td>"
-                            + "<td>" + each["resName"] + "</td>"
-                            + "<td>" + each["resDeleted"] + "</td>"
-                            + "</tr>"
-                        );
+                        $("#add_user_role").append(add_user_role_list_template(each));
                     }
                 },
                 error: (data, status, xhr) => {
