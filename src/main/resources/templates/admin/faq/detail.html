@@ -63,7 +63,6 @@
 
                     <div class="form-group row mt-6">
                         <div class="col-sm-8 offset-sm-8 text-end">
-                            <button class="btn btn-info m-1" id="detail_faq_btn" onclick="detail_faq()">Load</button>
                             <button class="btn btn-primary m-1" id="update_faq_btn" onclick="update_faq()">Update</button>
                             <button class="btn btn-danger m-1" id="delete_faq_btn" onclick="delete_faq()">Delete</button>
                         </div>
@@ -98,6 +97,10 @@
     <!-- Function-->
     <script>
         let faq_id = window.location.pathname.split("/").pop();
+
+        $(document).ready(function(){
+            detail_faq();
+        });
 
         function detail_faq() {
             $.ajax({

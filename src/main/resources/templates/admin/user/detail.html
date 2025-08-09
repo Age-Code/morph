@@ -71,7 +71,6 @@
 
                     <div class="form-group row mt-6">
                         <div class="col-sm-8 offset-sm-8 text-end">
-                            <button class="btn btn-info m-1" id="detail_user_btn" onclick="detail_user()">Load</button>
                             <button class="btn btn-primary m-1" id="update_user_btn" onclick="update_user()">Update</button>
                             <button class="btn btn-danger m-1" id="delete_user_btn" onclick="delete_user()">Delete</button>
                         </div>
@@ -165,6 +164,10 @@
     <!-- Function-->
     <script>
         let user_id = window.location.pathname.split("/").pop();
+
+        $(document).ready(function(){
+            detail_user();
+        });
 
         function detail_user() {
             $.ajax({

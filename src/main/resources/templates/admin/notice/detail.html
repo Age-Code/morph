@@ -63,7 +63,6 @@
 
                     <div class="form-group row mt-6">
                         <div class="col-sm-8 offset-sm-8 text-end">
-                            <button class="btn btn-info m-1" id="detail_notice_btn" onclick="detail_notice()">Load</button>
                             <button class="btn btn-primary m-1" id="update_notice_btn" onclick="update_notice()">Update</button>
                             <button class="btn btn-danger m-1" id="delete_notice_btn" onclick="delete_notice()">Delete</button>
                         </div>
@@ -98,6 +97,10 @@
     <!-- Function-->
     <script>
         let notice_id = window.location.pathname.split("/").pop();
+
+        $(document).ready(function(){
+            detail_notice();
+        });
 
         function detail_notice() {
             $.ajax({

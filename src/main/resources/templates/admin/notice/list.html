@@ -31,7 +31,6 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <button class="btn btn-info m-1" onclick="list_notice()">Load</button>
                             <a class="btn btn-primary m-1" href="#" style="float: right" data-toggle="modal" data-target="#createModal">Create</a>
                         </div>
                         <div class="card-body">
@@ -133,6 +132,10 @@
     <script src="/sb-admin/js/demo/datatables-demo.js"></script>
 
     <script>
+        $(document).ready(function(){
+            list_notice();
+        });
+
         function create_notice() {
             $.ajax({
                 url: "/api/notice",

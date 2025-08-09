@@ -63,7 +63,6 @@
 
                     <div class="form-group row mt-6">
                         <div class="col-sm-8 offset-sm-8 text-end">
-                            <button class="btn btn-info m-1" id="detail_role_btn" onclick="detail_role()">Load</button>
                             <button class="btn btn-primary m-1" id="update_role_btn" onclick="update_role()">Update</button>
                             <button class="btn btn-danger m-1" id="delete_role_btn" onclick="delete_role()">Delete</button>
                         </div>
@@ -177,6 +176,10 @@
         let role_id = window.location.pathname.split("/").pop();
 
         let detail_permission = new Set();
+
+        $(document).ready(function(){
+            detail_role();
+        });
 
         function detail_role() {
             $.ajax({
