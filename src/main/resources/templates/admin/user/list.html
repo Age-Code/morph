@@ -4,6 +4,16 @@
 <!-- Head -->
 <th:block th:replace="~{/includes/admin/head}" />
 
+<script id="list-template" type="text/x-handlebars-template">
+    <tr>
+        <td>{{id}}</td>
+        <td class='cursor_pointer' onclick='location.href = "/admin/role/detail/{{id}}"'>{{username}}</td>
+        <td>{{deleted}}</td>
+        <td>{{createdAt}}</td>
+        <td>{{modifiedAt}}</td>
+    </tr>
+</script>
+
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -151,6 +161,9 @@
             list_role();
         });
 
+        var list_source = $("#list-template").html();
+        var list_template = Handlebars.compile(list_source);
+
         function create_user() {
             $.ajax({
                 url: "/api/adminUser",
@@ -187,15 +200,7 @@
                 success: (data, status, xhr)=>{
                     $("#table_body").html("");
                     for(let each of data){
-                        $("#table_body").append(
-                            "<tr>"
-                            + "<td>" + each["id"] + "</td>"
-                            + "<td class='cursor_pointer' onclick='location.href = \"/admin/user/detail/" + each["id"] + "\"'>" + each["username"] + "</td>"
-                            + "<td>" + each["deleted"] + "</td>"
-                            + "<td>" + each["createdAt"] + "</td>"
-                            + "<td>" + each["modifiedAt"] + "</td>"
-                            + "</tr>"
-                        );
+                        $("#table_body").append(list_template(each));
                     }
                 },
                 error: (data, status, xhr)=>{
