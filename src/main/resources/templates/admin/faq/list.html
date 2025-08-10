@@ -181,10 +181,14 @@
                     "Authorization" : localStorage.getItem("Authorization")
                 },
                 success: (data, status, xhr)=>{
+                    if ($.fn.DataTable.isDataTable('#dataTable')) {
+                        $('#dataTable').DataTable().clear().destroy();
+                    }
                     $("#table_body").html("");
                     for(let each of data){
                         $("#table_body").append(list_template(each));
                     }
+                    $('#dataTable').DataTable();
                 },
                 error: (data, status, xhr)=>{
                     alert(JSON.stringify(data));
