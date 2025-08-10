@@ -104,20 +104,22 @@
                         </div>
                         <div class="tab-content card-body">
                             <div id="tab-user" class="tab-pane active">
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Role Name</th>
-                                        <th>Deleted</th>
-                                        <th>Added By</th>
-                                        <th>Added At</th>
-                                        <th><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModal" onclick="list_user_role()">Add</button></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="user_role_list">
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable_role">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Role Name</th>
+                                            <th>Deleted</th>
+                                            <th>Added By</th>
+                                            <th>Added At</th>
+                                            <th><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModal" onclick="list_user_role()">Add</button></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="user_role_list">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -138,9 +140,8 @@
     <!-- End of Page Wrapper -->
 
     <!-- Add Modal-->
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">User Add</h5>
@@ -149,7 +150,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table class="table table-bordered" id="dataTable">
+                    <table class="table table-bordered" id="dataTable_add_role">
                         <thead>
                             <tr>
                                 <th><input type="checkbox"/></th>
@@ -180,6 +181,10 @@
 
     <!-- Script-->
     <th:block th:replace="~{/includes/admin/script}" />
+
+    <!-- Page level plugins -->
+    <script src="/sb-admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/sb-admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Function-->
     <script>
@@ -217,10 +222,14 @@
                     $("#user_modifiedAt").val(data["modifiedAt"]);
 
                     let user_role = data["userRoleList"];
+                    if ($.fn.DataTable.isDataTable('#dataTable_role')) {
+                        $('#dataTable_role').DataTable().clear().destroy();
+                    }
                     $("#user_role_list").html("");
                     for (let each of user_role) {
                         $("#user_role_list").append(user_role_list_template(each));
                     }
+                    $('#dataTable_role').DataTable();
                 },
                 error: (data, status, xhr) => {
                     alert(JSON.stringify(data));
@@ -285,10 +294,14 @@
                     reqId: Number(user_id)
                 },
                 success: (data, status, xhr)=>{
+                    if ($.fn.DataTable.isDataTable('#dataTable_add_role')) {
+                        $('#dataTable_add_role').DataTable().clear().destroy();
+                    }
                     $("#add_user_role").html("");
                     for (let each of data) {
                         $("#add_user_role").append(add_user_role_list_template(each));
                     }
+                    $('#dataTable_add_role').DataTable();
                 },
                 error: (data, status, xhr) => {
                     alert(JSON.stringify(data));
