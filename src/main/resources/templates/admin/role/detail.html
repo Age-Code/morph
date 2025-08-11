@@ -92,13 +92,20 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label">Image</label>
+                        <div class="col-sm-4">
+                            <input type="file" class="input_param form-control" id="role_image" name="image" accept="image/*" multiple/>
+                        </div>
+                        <div id="image_preview" class="mt-2 d-flex flex-wrap" style="gap:8px;"></div>
+                    </div>
+
                     <div class="form-group row mt-6">
                         <div class="col-sm-8 offset-sm-8 text-end">
                             <button class="btn btn-primary m-1" id="update_role_btn" onclick="update_role()">Update</button>
                             <button class="btn btn-danger m-1" id="delete_role_btn" onclick="delete_role()">Delete</button>
                         </div>
                     </div>
-
 
                     <!-- Permission Table -->
                     <div class="card shadow mb-4">
@@ -226,6 +233,34 @@
 
         var add_role_user_list_source = $("#add-role-user-list-template").html();
         var add_role_user_list_template = Handlebars.compile(add_role_user_list_source);
+
+        $('#notice_images').on('change', function () {
+            const preview = $('#image_preview').empty();
+            const files = this.files;
+            const maxSize = 5 * 1024 * 1024; // 5MB
+
+            for (const f of files) {
+                // 간단 검증: 타입/용량
+                if (!f.type.startsWith('image/')) {
+                    alert(`이미지 파일만 업로드 가능합니다: ${f.name}`);
+                    continue;
+                }
+                if (f.size > maxSize) {
+                    alert(`파일 용량 초과(5MB): ${f.name}`);
+                    continue;
+                }
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const $img = $('<img/>', {
+                        src: e.target.result,
+                        alt: f.name,
+                        style: 'height:80px;object-fit:cover;border:1px solid #ddd;border-radius:6px;padding:2px;'
+                    });
+                    preview.append($img);
+                };
+                reader.readAsDataURL(f);
+            }
+        });
 
         function detail_role() {
             $.ajax({
