@@ -102,6 +102,34 @@
             detail_faq();
         });
 
+        $('#notice_images').on('change', function () {
+            const preview = $('#image_preview').empty();
+            const files = this.files;
+            const maxSize = 5 * 1024 * 1024; // 5MB
+
+            for (const f of files) {
+                // 간단 검증: 타입/용량
+                if (!f.type.startsWith('image/')) {
+                    alert(`이미지 파일만 업로드 가능합니다: ${f.name}`);
+                    continue;
+                }
+                if (f.size > maxSize) {
+                    alert(`파일 용량 초과(5MB): ${f.name}`);
+                    continue;
+                }
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const $img = $('<img/>', {
+                        src: e.target.result,
+                        alt: f.name,
+                        style: 'height:80px;object-fit:cover;border:1px solid #ddd;border-radius:6px;padding:2px;'
+                    });
+                    preview.append($img);
+                };
+                reader.readAsDataURL(f);
+            }
+        });
+
         function detail_faq() {
             $.ajax({
                 url: "/api/faq/detail",
