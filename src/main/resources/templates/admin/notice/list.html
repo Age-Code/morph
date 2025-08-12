@@ -118,7 +118,7 @@
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Image</label>
                         <div class="col-sm-10">
-                            <input type="file" class="input_param form-control" id="notice_image" name="image" accept="image/*" multiple/>
+                            <input type="file" class="input_param form-control" id="notice_image" name="image" accept="image/*" onchange="listenerSetImage(this)" multiple/>
                         </div>
                         <div id="image_preview" class="mt-2 d-flex flex-wrap" style="gap:8px;"></div>
                     </div>
@@ -155,9 +155,9 @@
         var list_source = $("#list-template").html();
         var list_template = Handlebars.compile(list_source);
 
-        $('#notice_image').on('change', function () {
+        function listenerSetImage(obj){
             const preview = $('#image_preview').empty();
-            const files = this.files;
+            const files = obj.files;
 
             for (const f of files) {
                 if (!f.type.startsWith('image/')) {
@@ -175,7 +175,29 @@
                 };
                 reader.readAsDataURL(f);
             }
-        });
+        }
+
+        // $('#notice_image').on('change', function () {
+        //     const preview = $('#image_preview').empty();
+        //     const files = this.files;
+        //
+        //     for (const f of files) {
+        //         if (!f.type.startsWith('image/')) {
+        //             alert(`Only image files are allowed: ${f.name}`);
+        //             continue;
+        //         }
+        //         const reader = new FileReader();
+        //         reader.onload = (e) => {
+        //             const $img = $('<img/>', {
+        //                 src: e.target.result,
+        //                 alt: f.name,
+        //                 style: 'height:80px;object-fit:cover;border:1px solid #ddd;border-radius:6px;padding:2px;'
+        //             });
+        //             preview.append($img);
+        //         };
+        //         reader.readAsDataURL(f);
+        //     }
+        // });
 
         function create_notice() {
             $.ajax({
