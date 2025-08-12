@@ -177,28 +177,6 @@
             }
         }
 
-        // $('#notice_image').on('change', function () {
-        //     const preview = $('#image_preview').empty();
-        //     const files = this.files;
-        //
-        //     for (const f of files) {
-        //         if (!f.type.startsWith('image/')) {
-        //             alert(`Only image files are allowed: ${f.name}`);
-        //             continue;
-        //         }
-        //         const reader = new FileReader();
-        //         reader.onload = (e) => {
-        //             const $img = $('<img/>', {
-        //                 src: e.target.result,
-        //                 alt: f.name,
-        //                 style: 'height:80px;object-fit:cover;border:1px solid #ddd;border-radius:6px;padding:2px;'
-        //             });
-        //             preview.append($img);
-        //         };
-        //         reader.readAsDataURL(f);
-        //     }
-        // });
-
         function create_notice() {
             $.ajax({
                 url: "/api/notice",
