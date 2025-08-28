@@ -1,9 +1,9 @@
 package org.example.morph.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.example.morph.domain.Role;
 import org.example.morph.domain.RoleUser;
 import org.example.morph.dto.RoleUserDto;
+import org.example.morph.exception.NoPermissionException;
 import org.example.morph.mapper.RoleUserMapper;
 import org.example.morph.repository.RoleUserRepository;
 import org.example.morph.service.RoleUserService;
@@ -17,6 +17,14 @@ public class RoleUserServiceimpl implements RoleUserService {
 
     final RoleUserRepository roleUserRepository;
     final RoleUserMapper roleUserMapper;
+
+    // Permit
+    @Override
+    public void permit(RoleUserDto.PermitSevDto permitSevDto){
+        if(roleUserMapper.permit(permitSevDto) == 0){
+            throw new NoPermissionException("No Auth");
+        }
+    }
 
     // Add
     @Override

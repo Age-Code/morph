@@ -7,7 +7,7 @@ import org.example.morph.domain.Permission;
 public class PermissionDto {
 
     // Toggle Service Dto
-    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class ToggleSevDto{
         Boolean active;
         Long roleId;

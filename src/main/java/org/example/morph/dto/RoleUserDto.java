@@ -10,6 +10,14 @@ import java.util.List;
 
 public class RoleUserDto {
 
+    // Permit Service Dto
+    @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
+    public static class PermitSevDto{
+        Long reqUserId;
+        String permission;
+        Integer func;
+    }
+
     // Add Service Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
     public static class AddSevDto{
