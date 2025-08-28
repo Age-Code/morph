@@ -11,5 +11,5 @@ public interface AdminUserService {
     AdminUserDto.DetailResDto detail(AdminUserDto.DetailSevDto detailSevDto);
     List<AdminUserDto.ListResDto> list(AdminUserDto.ListSevDto listSevDto);
     void update(AdminUserDto.UpdateSevDto updateSevDto);
-//    void delete(AdminUserDto.DeleteSevDto deleteSevDto);
+    void delete(AdminUserDto.DeleteSevDto deleteSevDto);
 }

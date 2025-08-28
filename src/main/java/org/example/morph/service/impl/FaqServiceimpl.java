@@ -5,7 +5,6 @@ import org.example.morph.domain.Faq;
 import org.example.morph.dto.FaqDto;
 import org.example.morph.dto.RoleUserDto;
 import org.example.morph.mapper.FaqMapper;
-import org.example.morph.mapper.RoleUserMapper;
 import org.example.morph.repository.FaqRepository;
 import org.example.morph.service.FaqService;
 import org.example.morph.service.RoleUserService;

@@ -16,6 +16,8 @@ import java.util.List;
 @Service
 public class AdminUserServiceimpl implements AdminUserService {
 
+    final String permission = "user";
+
     final AdminUserRepository adminUserRepository;
     final AdminUserMapper adminUserMapper;
     final RoleUserService roleUserService;
@@ -24,6 +26,8 @@ public class AdminUserServiceimpl implements AdminUserService {
     // Create
     @Override
     public AdminUserDto.CreateResDto create(AdminUserDto.CreateSevDto createSevDto) {
+        roleUserService.permit(RoleUserDto.PermitSevDto.builder().reqUserId(createSevDto.getReqUserId()).permission(permission).func(120).build());
+
         AdminUserDto.CreateResDto res = adminUserRepository.save(createSevDto.toEntity()).toCreateResDto();
 
         return res;
@@ -32,6 +36,8 @@ public class AdminUserServiceimpl implements AdminUserService {
     // Detail
     @Override
     public AdminUserDto.DetailResDto detail(AdminUserDto.DetailSevDto detailSevDto){
+        roleUserService.permit(RoleUserDto.PermitSevDto.builder().reqUserId(detailSevDto.getReqUserId()).permission(permission).func(150).build());
+
         AdminUserDto.DetailResDto res = adminUserMapper.detail(detailSevDto);
 
         res.setUserRoleList(roleUserService.roleList(RoleUserDto.ListSevDto.builder().deleted(false).reqId(detailSevDto.getId()).reqUserId(detailSevDto.getReqUserId()).build()));
@@ -50,37 +56,41 @@ public class AdminUserServiceimpl implements AdminUserService {
     // Update
     @Override
     public void update(AdminUserDto.UpdateSevDto updateSevDto){
-        User role = adminUserRepository.findById(updateSevDto.getId()).orElse(null);
-        if(role == null){
+        roleUserService.permit(RoleUserDto.PermitSevDto.builder().reqUserId(updateSevDto.getReqUserId()).permission(permission).func(180).build());
+
+        User user = adminUserRepository.findById(updateSevDto.getId()).orElse(null);
+        if(user == null){
             throw new RuntimeException("no data");
         }
 
         if(updateSevDto.getUsername() != null){
-            role.setUsername(updateSevDto.getUsername());
+            user.setUsername(updateSevDto.getUsername());
         }
         if(updateSevDto.getEmail() != null){
-            role.setEmail(updateSevDto.getEmail());
+            user.setEmail(updateSevDto.getEmail());
         }
         if(updateSevDto.getUniversity() != null){
-            role.setUniversity(updateSevDto.getUniversity());
+            user.setUniversity(updateSevDto.getUniversity());
         }
         if(updateSevDto.getNickname() != null){
-            role.setNickname(updateSevDto.getNickname());
+            user.setNickname(updateSevDto.getNickname());
         }
 
-        adminUserRepository.save(role);
+        adminUserRepository.save(user);
     }
 
-//    // Delete
-//    @Override
-//    public void delete(AdminUserDto.DeleteSevDto deleteSevDto){
-//        AdminUser role = roleRepository.findById(deleteSevDto.getId()).orElse(null);
-//        if(role == null){
-//            throw new RuntimeException("no data");
-//        }
-//
-//        role.setDeleted(true);
-//
-//        roleRepository.save(role);
-//    }
+    // Delete
+    @Override
+    public void delete(AdminUserDto.DeleteSevDto deleteSevDto){
+        roleUserService.permit(RoleUserDto.PermitSevDto.builder().reqUserId(deleteSevDto.getReqUserId()).permission(permission).func(200).build());
+
+        User user = adminUserRepository.findById(deleteSevDto.getId()).orElse(null);
+        if(user == null){
+            throw new RuntimeException("no data");
+        }
+
+        user.setDeleted(true);
+
+        adminUserRepository.save(user);
+    }
 }

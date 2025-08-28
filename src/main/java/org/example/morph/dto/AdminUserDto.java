@@ -97,15 +97,15 @@ public class AdminUserDto {
         Long reqUserId;
     }
 
-//    // Delete Request Dto
-//    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-//    public static class DeleteReqDto extends DefaultDto.BaseDto {
-//        Long id;
-//    }
-//
-//    // Delete Service Dto
-//    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-//    public static class DeleteSevDto extends DeleteReqDto {
-//        Long reqUserId;
-//    }
+    // Delete Request Dto
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class DeleteReqDto extends DefaultDto.BaseDto {
+        Long id;
+    }
+
+    // Delete Service Dto
+    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
+    public static class DeleteSevDto extends DeleteReqDto {
+        Long reqUserId;
+    }
 }
