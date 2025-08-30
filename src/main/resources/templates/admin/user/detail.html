@@ -17,7 +17,7 @@
 
 <script id="add-user-role-list-template" type="text/x-handlebars-template">
     <tr>
-        <td><input type="checkbox" class='checkbox_user_role' id="list_{{resId}}" /></td>
+        <td><input type="checkbox" class='checkbox_user_role' id="list_{{resId}}" onclick="listener_chk_user_role(this)"/></td>
         <td>{{resId}}</td>
         <td>{{resName}}</td>
         <td>{{resDeleted}}</td>
@@ -153,7 +153,7 @@
                     <table class="table table-bordered" id="dataTable_add_role">
                         <thead>
                             <tr>
-                                <th><input type="checkbox"/></th>
+                                <th><input type="checkbox" id="list_all" onclick="listener_chk_user_role(this)"/></th>
                                 <th>#</th>
                                 <th>Role Name</th>
                                 <th>Deleted</th>
@@ -373,6 +373,25 @@
             });
         }
 
+        function listener_chk_user_role(obj){
+            if (obj.id === "list_all") {
+                let checked = $("#list_all").prop("checked");
+                let input_chk_each = $(".checkbox_user_role");
+                for(let each of input_chk_each){
+                    $(each).prop("checked", checked);
+                }
+            } else {
+                let isOn = true;
+                let input_chk_each = $(".checkbox_user_role");
+                for (let each of input_chk_each) {
+                    let each_checked = $(each).prop("checked");
+                    if (!each_checked) {
+                        isOn = false;
+                    }
+                }
+                $("#list_all").prop("checked", isOn);
+            }
+        }
     </script>
 
 </body>
