@@ -7,11 +7,11 @@
 <script id="permission-list-template" type="text/x-handlebars-template">
     <tr>
         <td>{{title}}</td>
-        <td><input type="checkbox" class='checkbox_{{permission}}' id="{{permission}}_0" /></td>
-        <td><input type="checkbox" class='checkbox_{{permission}}' id="{{permission}}_120" /></td>
-        <td><input type="checkbox" class='checkbox_{{permission}}' id="{{permission}}_150" /></td>
-        <td><input type="checkbox" class='checkbox_{{permission}}' id="{{permission}}_180" /></td>
-        <td><input type="checkbox" class='checkbox_{{permission}}' id="{{permission}}_200" /></td>
+        <td><input type="checkbox" class='checkbox_all_{{permission}}' id="{{permission}}_0" onchange="listener_chk_permission('{{permission}}','0')"/></td>
+        <td><input type="checkbox" class='checkbox_each_{{permission}}' id="{{permission}}_120" onchange="listener_chk_permission('{{permission}}','120')"/></td>
+        <td><input type="checkbox" class='checkbox_each_{{permission}}' id="{{permission}}_150" onchange="listener_chk_permission('{{permission}}','150')"/></td>
+        <td><input type="checkbox" class='checkbox_each_{{permission}}' id="{{permission}}_180" onchange="listener_chk_permission('{{permission}}','180')"/></td>
+        <td><input type="checkbox" class='checkbox_each_{{permission}}' id="{{permission}}_200" onchange="listener_chk_permission('{{permission}}','200')"/></td>
     </tr>
 </script>
 
@@ -28,7 +28,7 @@
 
 <script id="add-role-user-list-template" type="text/x-handlebars-template">
     <tr>
-        <td><input type="checkbox" class='checkbox_role_user' id="list_{{resId}}" /></td>
+        <td><input type="checkbox" class='checkbox_role_user' id="list_{{resId}}" onclick="listener_chk_role_user(this)"/></td>
         <td>{{resId}}</td>
         <td>{{resName}}</td>
         <td>{{resDeleted}}</td>
@@ -174,7 +174,7 @@
                     <table class="table table-bordered" id="dataTable_add_user">
                         <thead>
                             <tr>
-                                <th><input type="checkbox"/></th>
+                                <th><input type="checkbox" id="list_all" onclick="listener_chk_role_user(this)"/></th>
                                 <th>#</th>
                                 <th>Username</th>
                                 <th>Deleted</th>
@@ -263,6 +263,7 @@
                         const key = `${each["permission"]}_${each["func"]}`;
                         detail_permission.add(key);
                         $("#" + key).prop("checked", true);
+                        listener_chk_permission(each["permission"], each["func"]);
                     }
 
                     let role_user = data["roleUserList"];
@@ -436,6 +437,45 @@
             });
         }
 
+        function listener_chk_permission(permission, func){
+            if (func === '0') {
+                let checked = $("#" + permission + "_" + func).prop("checked");
+                let input_chk_each = $(".checkbox_each_" + permission);
+                for(let each of input_chk_each){
+                    $(each).prop("checked", checked);
+                }
+            } else {
+                let isOn = true;
+                let input_chk_each = $(".checkbox_each_" + permission);
+                for (let each of input_chk_each) {
+                    let each_checked = $(each).prop("checked");
+                    if (!each_checked) {
+                        isOn = false;
+                    }
+                }
+                $("#" + permission + "_0").prop("checked", isOn);
+            }
+        }
+
+        function listener_chk_role_user(obj){
+            if (obj.id === "list_all") {
+                let checked = $("#list_all").prop("checked");
+                let input_chk_each = $(".checkbox_role_user");
+                for(let each of input_chk_each){
+                    $(each).prop("checked", checked);
+                }
+            } else {
+                let isOn = true;
+                let input_chk_each = $(".checkbox_role_user");
+                for (let each of input_chk_each) {
+                    let each_checked = $(each).prop("checked");
+                    if (!each_checked) {
+                        isOn = false;
+                    }
+                }
+                $("#list_all").prop("checked", isOn);
+            }
+        }
     </script>
 
 </body>
