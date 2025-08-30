@@ -9,7 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.example.morph.util.FileUpload;
 
+import java.io.IOException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -25,6 +28,11 @@ public class NoticeRestController {
         }
 
         return principalDetails.getUser().getId();
+    }
+
+    @PostMapping("/uploadFile")
+    public String uploadFile(MultipartFile file) throws IOException {
+        return FileUpload.upload(file);
     }
 
     @PreAuthorize("hasRole('USER')")

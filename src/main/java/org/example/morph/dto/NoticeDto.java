@@ -6,7 +6,6 @@ import lombok.experimental.SuperBuilder;
 import org.example.morph.domain.Notice;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class NoticeDto {
 
