@@ -45,50 +45,13 @@
 
 </div>
 
-<div id="toolbar">
-    <select class="ql-header"><option value="1"></option><option value="2"></option><option selected></option></select>
-    <button class="ql-bold"></button>
-    <button class="ql-italic"></button>
-    <button class="ql-link"></button>
-    <button class="ql-image"></button>
+<div>
+    <h2>Anon</h2>
+
+    <a href="/Anon/index">Index</a>
+    <br/>
+
 </div>
-<div id="editor">Hello World!</div>
-
-<script>
-    const quill = new Quill('#editor', {
-        theme: 'snow',
-        modules: {
-            toolbar: {           // 커스텀 컨테이너 사용
-                container: '#toolbar',
-                handlers: {
-                    image: () => selectLocalImage()
-                }
-            },
-            history: { delay: 1000, maxStack: 200 }
-            // syntax: true  // highlight.js 사용 시
-        },
-        placeholder: '내용을 입력하세요...',
-        formats: [ 'header','bold','italic','link','image','list','blockquote','code-block','align','color','background' ]
-    });
-
-    function selectLocalImage() {
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = 'image/*';
-        input.onchange = async () => {
-            const file = input.files[0];
-            const form = new FormData();
-            form.append('file', file);
-            const res = await fetch('/api/uploads', {method: 'POST', body: form});
-            const {url} = await res.json();
-            const range = quill.getSelection(true);
-            quill.insertEmbed(range.index, 'image', url, 'user'); // URL로 임베드
-            quill.setSelection(range.index + 1, 0);
-        };
-        input.click();
-    }
-</script>
-
 
 </body>
 </html>
