@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import lombok.Getter;
 import lombok.Setter;
-import org.example.morph.dto.AnonDto;
+import org.example.morph.dto.AnonPostDto;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
@@ -27,7 +27,7 @@ public class AnonPost extends AuditingFields{
         return new AnonPost(createUserId, title, content);
     }
 
-    public AnonDto.CreateResDto toCreateResDto() {
-        return AnonDto.CreateResDto.builder().id(getId()).build();
+    public AnonPostDto.CreateResDto toCreateResDto() {
+        return AnonPostDto.CreateResDto.builder().id(getId()).build();
     }
 }
