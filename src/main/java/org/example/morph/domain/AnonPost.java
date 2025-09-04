@@ -14,17 +14,15 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class AnonPost extends AuditingFields{
 
     Long createUserId;
-    String title;
     String content;
 
     protected AnonPost() {}
-    private AnonPost(Long createUserId, String title, String content) {
+    private AnonPost(Long createUserId, String content) {
         this.createUserId = createUserId;
-        this.title = title;
         this.content = content;
     }
-    public static AnonPost of(Long createUserId, String title, String content) {
-        return new AnonPost(createUserId, title, content);
+    public static AnonPost of(Long createUserId, String content) {
+        return new AnonPost(createUserId, content);
     }
 
     public AnonPostDto.CreateResDto toCreateResDto() {

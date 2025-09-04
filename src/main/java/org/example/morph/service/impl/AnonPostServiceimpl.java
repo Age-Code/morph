@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class AnonPostServiceimpl implements AnonPostService {
 
-    final String permission = "anonPost";
+    final String permission = "anon";
     final RoleUserService roleUserService;
 
     final AnonPostRepository anonPostRepository;
@@ -60,9 +60,6 @@ public class AnonPostServiceimpl implements AnonPostService {
             throw new RuntimeException("no data");
         }
 
-        if(updateSevDto.getTitle() != null){
-            anonPost.setTitle(updateSevDto.getTitle());
-        }
         if(updateSevDto.getContent() != null){
             anonPost.setContent(updateSevDto.getContent());
         }

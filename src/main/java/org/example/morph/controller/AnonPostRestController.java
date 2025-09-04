@@ -3,7 +3,7 @@ package org.example.morph.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.morph.dto.AnonPostDto;
 import org.example.morph.security.PrincipalDetails;
-import org.example.morph.service.AnonService;
+import org.example.morph.service.AnonPostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 public class AnonPostRestController {
 
-    final AnonService anonPostService;
+    final AnonPostService anonPostService;
 
     public Long getReqUserId(PrincipalDetails principalDetails) {
         if(principalDetails == null || principalDetails.getUser() == null || principalDetails.getUser().getId() == null) {

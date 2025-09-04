@@ -12,7 +12,6 @@ public class AnonPostDto {
     // Create Request Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
     public static class CreateReqDto extends DefaultDto.BaseDto {
-        String title;
         String content;
     }
 
@@ -21,7 +20,7 @@ public class AnonPostDto {
     public static class CreateSevDto extends CreateReqDto {
         Long reqUserId;
 
-        public AnonPost toEntity() { return AnonPost.of(getReqUserId(), getTitle(), getContent()); }
+        public AnonPost toEntity() { return AnonPost.of(getReqUserId(), getContent()); }
     }
 
     // Create Response Dto
@@ -51,7 +50,6 @@ public class AnonPostDto {
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
-        String title;
         String content;
     }
 
@@ -65,10 +63,7 @@ public class AnonPostDto {
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class ListResDto {
         Long id;
-        String title;
-        Boolean deleted;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-        LocalDateTime createdAt;
+        String content;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
     }
@@ -77,7 +72,6 @@ public class AnonPostDto {
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
     public static class UpdateReqDto extends DefaultDto.BaseDto {
         Long id;
-        String title;
         String content;
     }
 

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>Anon - 익명 피드</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <style>
+        body { background-color: #f9f9f9; }
+        .anon-card { border: 1px solid #ddd; border-radius: 10px; padding: 1rem; margin-bottom: 1rem; background: #fff; }
+        .anon-header { font-weight: bold; color: #444; }
+        .anon-meta { font-size: 0.85rem; color: gray; }
+        .anon-actions { margin-top: 0.5rem; }
+        .anon-actions button { margin-right: 0.5rem; }
+    </style>
+</head>
+<body>
+
+<div class="container my-4">
+
+    <!-- 🔝 헤더 -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>📢 Anon</h2>
+        <select class="form-select w-auto" id="scopeSelector">
+            <option selected>공개 범위: 내 대학교</option>
+            <option>대한민국 대학교</option>
+            <option>전 세계 대학교</option>
+        </select>
+    </div>
+
+    <!-- ✍️ 글 작성 -->
+    <div class="anon-card">
+        <textarea class="form-control mb-2" rows="3" placeholder="익명으로 글을 작성해보세요..."></textarea>
+        <button class="btn btn-primary btn-sm float-end">등록</button>
+        <div class="clearfix"></div>
+    </div>
+
+    <!-- 📄 게시글 예시 -->
+    <div class="anon-card">
+        <div class="anon-header">서울대학교</div>
+        <div class="anon-meta">5분 전</div>
+        <div class="mt-2">중간고사 너무 어려웠다... 나만 그런 거 아니지?</div>
+        <div class="anon-actions">
+            <button class="btn btn-outline-secondary btn-sm">👍 12</button>
+            <button class="btn btn-outline-secondary btn-sm">💬 댓글 4</button>
+        </div>
+    </div>
+
+    <div class="anon-card">
+        <div class="anon-header">부산대학교</div>
+        <div class="anon-meta">1시간 전</div>
+        <div class="mt-2">과제 팀플 진짜 하기 싫다 ㅋㅋ 다들 참여 좀 해줘 제발</div>
+        <div class="anon-actions">
+            <button class="btn btn-outline-secondary btn-sm">👍 30</button>
+            <button class="btn btn-outline-secondary btn-sm">💬 댓글 8</button>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

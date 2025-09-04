@@ -14,7 +14,8 @@ public class RoleDto {
             {"role", "ROLE"},
             {"user", "USER"},
             {"notice", "NOTICE"},
-            {"faq", "FAQ"}
+            {"faq", "FAQ"},
+            {"anon", "ANON"}
     };
 
     // Create Request Dto
