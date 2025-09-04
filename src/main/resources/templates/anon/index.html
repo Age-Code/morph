@@ -40,9 +40,8 @@
                     </div>
                 </div>
 
-
+                <div id="anon_post_list">
                 </div>
-
 
             </div>
             <!-- /.container-fluid -->
@@ -102,14 +101,15 @@
                 "Authorization" : localStorage.getItem("Authorization")
             },
             success: (data, status, xhr)=>{
+                alert(JSON.stringify(data));
                 $("#anon_post_list").html("");
                 for(let each of data){
-                    $("#anon_post_list").append("<div class='anon_post' id='anon_post_" + each[id] + "'>"
-                        + each[content]
-                        + each[modifiedAt]
-                    + "</div>");
+                    alert(JSON.stringify(each["content"]));
+                    $("#anon_post_list").append("<div class='anon_post' id='anon_post_" + each["id"] + "'>"
+                        + "Content:" + each["content"]
+                        + "ModifiedAt:" + each["modifiedAt"]
+                        + "</div>");
                 }
-                $('#dataTable').DataTable();
             },
             error: (data, status, xhr)=>{
                 alert(JSON.stringify(data));
