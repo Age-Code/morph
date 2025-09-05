@@ -19,6 +19,7 @@
                anon_comment.modified_at as modifiedAt,
                anon_comment.content
         FROM anon_comment
+        JOIN anon_post ON anon_post.id = anon_comment.post_id
         WHERE anon_comment.id is not NULL
     </select>
 

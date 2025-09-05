@@ -59,6 +59,7 @@ public class AnonCommentDto {
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
     public static class ListSevDto {
         Long postId;
+        Long reqUserId;
     }
 
     // List Response Dto
