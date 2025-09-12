@@ -29,7 +29,7 @@ public class RoleServiceimpl implements RoleService {
     // Create
     @Override
     public RoleDto.CreateResDto create(RoleDto.CreateSevDto createSevDto) {
-        roleUserService.permit(RoleUserDto.PermitSevDto.builder().reqUserId(createSevDto.getReqUserId()).permission(permission).func(120).build());
+        //roleUserService.permit(RoleUserDto.PermitSevDto.builder().reqUserId(createSevDto.getReqUserId()).permission(permission).func(120).build());
 
         RoleDto.CreateResDto res = roleRepository.save(createSevDto.toEntity()).toCreateResDto();
 
@@ -39,7 +39,7 @@ public class RoleServiceimpl implements RoleService {
     // Detail
     @Override
     public RoleDto.DetailResDto detail(RoleDto.DetailSevDto detailSevDto){
-        roleUserService.permit(RoleUserDto.PermitSevDto.builder().reqUserId(detailSevDto.getReqUserId()).permission(permission).func(150).build());
+        //roleUserService.permit(RoleUserDto.PermitSevDto.builder().reqUserId(detailSevDto.getReqUserId()).permission(permission).func(150).build());
 
         RoleDto.DetailResDto res = roleMapper.detail(detailSevDto);
 
@@ -61,7 +61,7 @@ public class RoleServiceimpl implements RoleService {
     // Update
     @Override
     public void update(RoleDto.UpdateSevDto updateSevDto){
-        roleUserService.permit(RoleUserDto.PermitSevDto.builder().reqUserId(updateSevDto.getReqUserId()).permission(permission).func(180).build());
+        //roleUserService.permit(RoleUserDto.PermitSevDto.builder().reqUserId(updateSevDto.getReqUserId()).permission(permission).func(180).build());
 
         Role role = roleRepository.findById(updateSevDto.getId()).orElse(null);
         if(role == null){

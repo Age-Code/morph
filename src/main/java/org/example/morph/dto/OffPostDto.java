@@ -3,25 +3,15 @@ package org.example.morph.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.example.morph.domain.Role;
+import org.example.morph.domain.OffPost;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-public class RoleDto {
-
-    public static String[][] permissions = {
-            {"role", "ROLE"},
-            {"user", "USER"},
-            {"notice", "NOTICE"},
-            {"faq", "FAQ"},
-            {"off", "OFF"}
-    };
+public class OffPostDto {
 
     // Create Request Dto
     @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
     public static class CreateReqDto extends DefaultDto.BaseDto {
-        String roleName;
         String content;
     }
 
@@ -30,7 +20,7 @@ public class RoleDto {
     public static class CreateSevDto extends CreateReqDto {
         Long reqUserId;
 
-        public Role toEntity() { return Role.of(getReqUserId(), getRoleName(), getContent()); }
+        public OffPost toEntity() { return OffPost.of(getReqUserId(), getContent()); }
     }
 
     // Create Response Dto
@@ -54,18 +44,14 @@ public class RoleDto {
     // Detail Response Dto
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class DetailResDto {
-        Long roleId;
+        Long id;
         Boolean deleted;
+        Long createUserId;
+        String content;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
-        String roleName;
-        String content;
-
-        String[][] permissions;
-        List<PermissionDto.ListResDto> permissionList;
-        List<RoleUserDto.ListResDto> roleUserList;
     }
 
     // List Service Dto
@@ -78,29 +64,11 @@ public class RoleDto {
     @Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
     public static class ListResDto {
         Long id;
-        String roleName;
-        Long createUserId;
-        Boolean deleted;
+        String content;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime createdAt;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         LocalDateTime modifiedAt;
-    }
-
-    // Update Request Dto
-    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-    public static class UpdateReqDto extends DefaultDto.BaseDto {
-        Long id;
-        String roleName;
-        String content;
-
-        List<PermissionDto.ToggleSevDto> permissionUpdate;
-    }
-
-    // Update Service Dto
-    @Getter @Setter @SuperBuilder @NoArgsConstructor @AllArgsConstructor
-    public static class UpdateSevDto extends UpdateReqDto {
-        Long reqUserId;
     }
 
     // Delete Request Dto
